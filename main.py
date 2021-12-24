@@ -13,11 +13,13 @@ def counter():
     counter_func['text'] = f'counter: {count}'
 
 
-def disable_button_func():
-    if count % 2 == 0:
-        new_lambda["state"] = tk.ACTIVE
+def switch():
+    if new_lambda["state"] == "normal":
+        new_lambda["state"] = "disabled"
+        disable_button["text"] = "enable"
     else:
-        new_lambda["state"] = tk.DISABLED
+        new_lambda["state"] = "normal"
+        disable_button["text"] = "disable"
 
 
 
@@ -41,7 +43,7 @@ print_text_in_tab = tk.Button(
 
 new_lambda = tk.Button(win, text='new lambda',
                        command=lambda: tk.Label(win, text='lambda text').pack(),
-                       state=tk.ACTIVE if count % 2 == 0 else tk.DISABLED
+                       #state=tk.ACTIVE if count % 2 == 0 else tk.DISABLED
 
                        )
 
@@ -54,7 +56,7 @@ counter_func = tk.Button(win, text=f'counter: {count}',
 disable_button = tk.Button(win, text='switch button',
                            bg='yellow',
                            activebackground='red',
-                           command=disable_button_func,
+                           command=switch,
                            state=tk.NORMAL,
 
                            )
