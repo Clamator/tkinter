@@ -3,7 +3,7 @@ from funcs import print_text_in_console
 
 
 def add_label():
-    label = tk.Label(win, text='text')
+    label = tk.Label(win, text='text111')
     label.pack()  # размещает текст непосредственно в окне
 
 count = 0
@@ -53,7 +53,7 @@ counter_func = tk.Button(win, text=f'counter: {count}',
                          activebackground='green',
                          )
 
-disable_button = tk.Button(win, text='switch button',
+disable_button = tk.Button(win, text='disable',
                            bg='yellow',
                            activebackground='red',
                            command=switch,
