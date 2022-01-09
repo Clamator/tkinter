@@ -28,7 +28,7 @@ class Point():
 
 
 win = tk.Tk()
-win.geometry('600x400+200+100')
+win.geometry('500x400+200+100')
 win.title('testing combobox')
 combo = ttk.Combobox(win, values=week)
 combo_ints = ttk.Combobox(win, values=day)
@@ -38,12 +38,12 @@ combo_point = ttk.Combobox(win, values=[Point(1, 1), Point(2, 4)])
 
 combo.current(0)
 combo_ints.current(0)
-combo.pack()
-combo_ints.pack()
-combo_year.pack()
-combo_point.pack()
+combo.place(x=10, y=10, width=120, height=20)
+combo_ints.place(x=130, y=10, width=120, height=20)
+combo_year.place(x=250, y=10, width=120, height=20)
+combo_point.place(x=370, y=10, width=120, height=20)
 
-ttk.Button(win, text='show date', command=show_date).pack()
-ttk.Button(win, text='set date', command=set_date).pack()
+ttk.Button(win, text='show date', command=show_date).place(x=200, y=80, width=100, height=30)
+ttk.Button(win, text='set date', command=set_date).place(x=200, y=130, width=100, height=30)
 
 win.mainloop()
