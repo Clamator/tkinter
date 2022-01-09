@@ -32,7 +32,7 @@ tk.Radiobutton(win, text='Easy', variable=level, value=1, command=select_level).
 tk.Radiobutton(win, text='Middle', variable=level, value=2, command=select_level).pack()
 tk.Radiobutton(win, text='Hard', variable=level, value=3, command=select_level).pack()
 
-tk.Checkbutton(win, textvariable=do_it, variable=do_it, command=do_it_all,
+tk.Checkbutton(win, textvariable=do_it, variable=do_it,
                indicatoron=1,
                offvalue='Do not do it',
                onvalue='Do it').pack()

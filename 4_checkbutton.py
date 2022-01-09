@@ -48,7 +48,7 @@ turn_on.pack()
 
 tk.Button(win, text='select all', command=select_all).pack()
 tk.Button(win, text='deselect all', command=deselect_all).pack()
-tk.Button(win, text='revesre all', command=reverse_all).pack()
+tk.Button(win, text='reverse all', command=reverse_all).pack()
 tk.Button(win, text='show status', command=show_status).pack()
 tk.Button(win, text='turn on lights', command=show_lights).pack()
 
