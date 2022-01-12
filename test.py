@@ -24,12 +24,15 @@ def get_link(queue=None):
     driver.get(start_page)
 
     all_links = []
-    for _ in range(11):
+    for _ in range(121):
         try:
-            file_link = driver.find_element(By.CSS_SELECTOR, 'div[class*="KL4Bh"]')
-            all_links.append(file_link)
-            next_file = driver.find_element(By.CSS_SELECTOR, 'svg[class*="_8-yf5"]')
+            time.sleep(0.6)
+            file_link = driver.find_element(By.CSS_SELECTOR, 'img').get_attribute('src')
+            all_links.append(file_link[:-6])
+            time.sleep(0.2)
+            next_file = driver.find_element(By.CSS_SELECTOR, 'a[id*="nextPhoto"]')
             driver.execute_script("arguments[0].click();", next_file)
+            tk.Label(win, text=f'{file_link}').place(x=310, y=320, width=320, height=20)
         except:
             tk.Label(win, text='некорректная ссылка или ссылка отсутствует').place(x=310, y=320, width=320, height=20)
 
