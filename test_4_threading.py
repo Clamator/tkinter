@@ -8,7 +8,12 @@ class App(tk.Tk):
         self.button = tk.Button(self,command=self.start_action,
                                 text="Ждать 5 секунд")
         self.button.place(x=50, y=70, width=150, height=30)
+        self.button = tk.Button(self, command=self.start_action,
+                                text="Ждать 10 секунд")
+        self.button.place(x=200, y=70, width=150, height=30)
+
         self.entry = tk.Entry(self, ).place(x=50, y=30, width=150, height=30)
+        self.entry = tk.Entry(self, ).place(x=200, y=30, width=150, height=30)
 
     def start_action(self):
         self.button.config(state=tk.DISABLED)
@@ -18,6 +23,7 @@ class App(tk.Tk):
         print(thread.name)
         thread.start()
         self.label = tk.Label(self, text='запуск действия').place(x=50, y=110, width=150, height=30)
+        self.label = tk.Label(self, text='запуск действия').place(x=200, y=110, width=150, height=30)
         self.check_thread(thread)
 
     def check_thread(self, thread):
@@ -28,12 +34,13 @@ class App(tk.Tk):
 
     def run_action(self):
         print("Запуск длительного действия...")
-        time.sleep(10)
+        time.sleep(4)
         self.label = tk.Label(self, text='действие завершено').place(x=50, y=110, width=150, height=30)
+        self.label = tk.Label(self, text='действие завершено').place(x=200, y=110, width=150, height=30)
         print("Длительное действие завершено!")
 
 if __name__ == "__main__":
     app = App()
-    app.geometry('300x200+300+200')
+    app.geometry('400x300+300+200')
     app.resizable(width=False, height=False)
     app.mainloop()
