@@ -29,6 +29,8 @@ class App(tk.Tk):
     def check_thread(self, thread):
         if thread.is_alive():
             self.after(100, lambda: self.check_thread(thread))
+            self.label = tk.Label(self, text='действие в процессе').place(x=50, y=110, width=150, height=30)
+            self.label = tk.Label(self, text='действие в процессе').place(x=200, y=110, width=150, height=30)
         else:
             self.button.config(state=tk.NORMAL)
 
