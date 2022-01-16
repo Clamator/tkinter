@@ -11,7 +11,7 @@ def refill():
         total_money = float(total_money.read())
         money_amount = float(number.get())
         new_total_money = money_amount + total_money
-        tk.Label(win, text=f'It is {total_money} in the wallet now', bg='yellow', font=(None, 20)).place(x=0, y=10, relx=0, width=430, height=20)
+        tk.Label(win, text=f'It is {new_total_money} in the wallet now', bg='yellow', font=(None, 20)).place(x=0, y=10, relx=0, width=430, height=20)
         number.delete(0, tk.END)
         number.insert(0, '0')
 
@@ -25,7 +25,7 @@ def withdraw():
         total_money = float(total_money.read())
         money_amount = float(number.get())
         new_total_money = total_money - money_amount
-        tk.Label(win, text=f'It is {total_money} in the wallet now', bg='yellow', font=(None, 20)).place(x=0, y=10, relx=0, width=430, height=20)
+        tk.Label(win, text=f'It is {new_total_money} in the wallet now', bg='yellow', font=(None, 20)).place(x=0, y=10, relx=0, width=430, height=20)
         number.delete(0, tk.END)
         number.insert(0, '0')
 
