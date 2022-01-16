@@ -1,12 +1,16 @@
 import tkinter as tk
+from tkinter import ttk
 win = tk.Tk()
 win.geometry('430x380+600+300')
 win.title('My wallet')
 win['bg'] = 'yellow'
+categories = ['food', 'transport pass', 'entertainment', 'medicine', 'other']
 
+combo_categories = ttk.Combobox(win, values=categories)
+combo_categories.place(x=250, y=150, relx=0, width=120, height=20)
 
 def refill():
-    tk.Label(win, text='refill is done.', bg='yellow').place(x=120, y=150, relx=0, width=200, height=20)
+    tk.Label(win, text='refill is done.', bg='yellow').place(x=120, y=120, relx=0, width=200, height=20)
     with open('wallet.txt', 'r', encoding='utf-8') as total_money:
         total_money = float(total_money.read())
         money_amount = float(number.get())
@@ -20,7 +24,7 @@ def refill():
 
 
 def withdraw():
-    tk.Label(win, text='withdraw is done.', bg='yellow').place(x=120, y=150, relx=0, width=200, height=20)
+    tk.Label(win, text='withdraw is done.', bg='yellow').place(x=120, y=120, relx=0, width=200, height=20)
     with open('wallet.txt', 'r', encoding='utf-8') as total_money:
         total_money = float(total_money.read())
         money_amount = float(number.get())
@@ -50,10 +54,11 @@ def press_key(event):
 with open('wallet.txt', 'r', encoding='utf-8') as total_money:
     total_money = float(total_money.read())
     tk.Label(win, text=f'It is {total_money} in the wallet now', bg='yellow', font=(None, 20)).place(x=0, y=10, relx=0, width=430, height=20)
-    tk.Label(win, text=f'Enter a necessary number', bg='yellow').place(x=0, y=50, relx=0, width=200, height=20)
+    tk.Label(win, text=f'Enter a necessary number ->', bg='yellow').place(x=0, y=50, relx=0, width=200, height=20)
+    tk.Label(win, text='Choose withdraw category', bg='yellow').place(x=20, y=150, relx=0, width=200, height=20)
     number = tk.Entry(win, justify=tk.RIGHT)
     number.insert(0, '0')
-    number.place(x=200, y=50, relx=0, width=200, height=20)
+    number.place(x=250, y=50, relx=0, width=100, height=20)
     tk.Button(win, text='Refill', command=refill, bg='orange').place(x=50, y=90, relx=0, width=100, height=20)
     tk.Button(win, text='Withdraw', command=withdraw, bg='orange').place(x=250, y=90, width=100, height=20)
 
