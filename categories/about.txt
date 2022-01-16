@@ -1,0 +1,11 @@
+this program is made to count you incomes and money wasting.
+you can use keyboard number keys to input digit and do refill or withdraw
+to refill - click 'r'
+to withdraw - click 'w'
+to clear an entry window - click 'c'
+avoid to click on entry window, in that case you should click Tab once (this bug is in correction process)
+
+also i'm going to add month zeroing on money waste, wasting history, category addind and other things
+
+creater by Clamator on January 2022
+https://github.com/Clamator

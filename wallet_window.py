@@ -9,10 +9,18 @@ win.title('My wallet')
 win['bg'] = 'yellow'
 categories = ['food', 'transport pass', 'entertainment', 'medicine', 'other']
 
+def about():
+    win2 = tk.Tk()
+    win2.geometry('600x400+600+300')
+    win2.title('About/ How to use')
+    info = open('categories\\about.txt')
+    tk.Label(win2, text=info.read()).pack()
+    win2.mainloop()
+
 menubar = tk.Menu(win)
 win.config(menu=menubar)
-settings_menu = tk.Menu(menubar)
-settings_menu.add_command(label='About/ How to use')
+settings_menu = tk.Menu(menubar, tearoff=0)
+settings_menu.add_command(label='About/ How to use', command=about)
 settings_menu.add_command(label='Exit', command=win.destroy)
 menubar.add_cascade(label='Settings', menu=settings_menu)
 
@@ -80,6 +88,8 @@ def refill():
 
     with open('wallet.txt', 'w', encoding='utf-8') as wallet:
         wallet.write(str(new_total_money))
+
+
 
 def withdraw():
     tk.Label(win, text='withdraw has been done.', bg='yellow').place(x=120, y=120, relx=0, width=200, height=20)
