@@ -1,11 +1,21 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
+
 win = tk.Tk()
 win.geometry('430x480+600+300')
 #win.attributes('-fullscreen', True)
 win.title('My wallet')
 win['bg'] = 'yellow'
 categories = ['food', 'transport pass', 'entertainment', 'medicine', 'other']
+
+menubar = tk.Menu(win)
+win.config(menu=menubar)
+settings_menu = tk.Menu(menubar)
+settings_menu.add_command(label='About/ How to use')
+settings_menu.add_command(label='Exit', command=win.destroy)
+menubar.add_cascade(label='Settings', menu=settings_menu)
+
 
 combo_categories = ttk.Combobox(win, values=categories)
 combo_categories.current(0)
@@ -59,7 +69,7 @@ def add_spent_money_to_category(category, spent_money):
             cat.write(str(new_money))
 
 def refill():
-    tk.Label(win, text='refill is done.', bg='yellow').place(x=120, y=120, relx=0, width=200, height=20)
+    tk.Label(win, text='refill has been done.', bg='yellow').place(x=120, y=120, relx=0, width=200, height=20)
     with open('wallet.txt', 'r', encoding='utf-8') as total_money:
         total_money = float(total_money.read())
         money_amount = float(number.get())
@@ -72,19 +82,25 @@ def refill():
         wallet.write(str(new_total_money))
 
 def withdraw():
-    tk.Label(win, text='withdraw is done.', bg='yellow').place(x=120, y=120, relx=0, width=200, height=20)
-
+    tk.Label(win, text='withdraw has been done.', bg='yellow').place(x=120, y=120, relx=0, width=200, height=20)
     with open('wallet.txt', 'r', encoding='utf-8') as total_money:
         total_money = float(total_money.read())
         money_amount = float(number.get())
-        new_total_money = total_money - money_amount
-        tk.Label(win, text=f'It is {new_total_money} in the wallet now', bg='yellow', font=(None, 20)).place(x=0, y=10, relx=0, width=430, height=20)
-        number.delete(0, tk.END)
-        number.insert(0, '0')
-    current_category = combo_categories.get()
-    add_spent_money_to_category(current_category, money_amount)
-    with open('wallet.txt', 'w', encoding='utf-8') as wallet:
-        wallet.write(str(new_total_money))
+        if money_amount < total_money:
+            new_total_money = total_money - money_amount
+            tk.Label(win, text=f'It is {new_total_money} in the wallet now', bg='yellow', font=(None, 20)).place(x=0, y=10, relx=0, width=430, height=20)
+            number.delete(0, tk.END)
+            number.insert(0, '0')
+            current_category = combo_categories.get()
+            add_spent_money_to_category(current_category, money_amount)
+            with open('wallet.txt', 'w', encoding='utf-8') as wallet:
+                wallet.write(str(new_total_money))
+        else:
+            messagebox.showerror('Attention', "you don't have money enough")
+            tk.Label(win, text='withdraw has not been done.', bg='yellow').place(x=120, y=120, relx=0, width=200, height=20)
+            number.delete(0, tk.END)
+            number.insert(0, '0')
+
 
 def add_digit(digit):
     value = number.get()
@@ -100,6 +116,9 @@ def press_key(event):
         withdraw()
     elif event.char == 'r':
         refill()
+    elif event.char == 'c':
+        number.delete(0, tk.END)
+        number.insert(0, '0')
 
 with open('wallet.txt', 'r', encoding='utf-8') as total_money:
     total_money = float(total_money.read())
