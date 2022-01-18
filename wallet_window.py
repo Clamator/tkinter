@@ -9,7 +9,6 @@ win.title('My wallet')
 win.minsize(400, 480)
 win['bg'] = '#3b5998'
 
-
 def about():
     win2 = tk.Tk()
     win2.geometry('600x400+600+300')
