@@ -7,5 +7,5 @@ avoid to click on entry window, in that case you should click Tab once (this bug
 
 also i'm going to add month zeroing on money waste, wasting history, category addind and other things
 
-creater by Clamator on January 2022
+created by Clamator on January 2022
 https://github.com/Clamator
