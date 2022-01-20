@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+from tkinter import *
 import csv
 from datetime import datetime
 
@@ -15,10 +16,16 @@ win['bg'] = '#3b5998'
 
 def about():
     win2 = tk.Tk()
-    win2.geometry('600x400+600+300')
+    #win2.geometry('600x400+600+300')
     win2.title('About/ How to use')
+    text = tk.Text(win2, width=100, height=40, bg="white", wrap=WORD)
+    text.configure(state=tk.NORMAL)
+    text.pack(side=LEFT)
+
     info = open('categories\\about.txt')
-    tk.Label(win2, text=info.read()).pack()
+    text.insert(1.0, info.read())
+    text.configure(state=tk.DISABLED)
+    #tk.Label(win2, text=info.read()).pack()
     win2.mainloop()
 
 
@@ -60,33 +67,44 @@ def write_csv_categ(current_category, data):
 def show_all_history():
     win3 = tk.Tk()
     win3.title('Wallet history')
-    win3.geometry('800x480+450+300')
-    win3['bg'] = 'white'
+    text = Text(win3, width=100, height=40, bg="white", wrap=WORD)
+    text.pack(side=LEFT)
+    scroll = Scrollbar(win3, command=text.yview)
+    scroll.pack(side=LEFT, fill=Y)
+
+    text.config(yscrollcommand=scroll.set)
     with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
         order = ['operation', 'how much', 'comment', 'date']
         reader = csv.DictReader(file, fieldnames=order)
+        text.configure(state=tk.NORMAL)
         for row in reader:
-            x = f"op: {row['operation']}, +{row['how much']}, {row['comment']}, date: {row['date'][:-10]}"
-            y = f"op: {row['operation']}, -{row['how much']}, {row['comment']}, date: {row['date'][:-10]}"
+            x = f"op: {row['operation']}, +{row['how much']}$, {row['comment']}, date: {row['date'][:-10]} \n"
+            y = f"op: {row['operation']}, -{row['how much']}$, {row['comment']}, date: {row['date'][:-10]} \n"
             if row['operation'] == 'refill':
-                tk.Label(win3, text=x, fg='green', bg='white').pack(anchor='w')
+                text.insert(1.0, x)
             else:
-                tk.Label(win3, text=y, fg='red', bg='white').pack(anchor='w')
-
+                text.insert(1.0, y)
+        text.configure(state=tk.DISABLED)
 def show_category_history(event):
     cat_name = event.widget.cget('text')
     win4 = tk.Tk()
+
     win4.title(f'{cat_name}')
-    win4.geometry('800x480+450+300')
-    win4['bg'] = 'white'
+    text = Text(win4, width=100, height=40, bg="white", wrap=WORD)
+    text.pack(side=LEFT)
+
+    scroll = Scrollbar(win4, command=text.yview)
+    scroll.pack(side=LEFT, fill=Y)
+    text.configure(state=tk.NORMAL)
+    text.config(yscrollcommand=scroll.set)
     with open(f'categories\\{cat_name}_history.csv', 'r', encoding="utf-8") as file:
         order = ['operation', 'how much', 'comment', 'date']
         reader = csv.DictReader(file, fieldnames=order)
         for row in reader:
-            y = f"-{row['how much']}, {row['comment']}, date: {row['date'][:-10]}"
-            tk.Label(win4, text=y, fg='green', bg='white').pack(anchor='w')
-
-
+            y = f"-{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+            #tk.Label(win4, text=y, fg='green', bg='white').pack(anchor='w')
+            text.insert(1.0, y)
+        text.configure(state=tk.DISABLED)
 def add_spent_money_to_category(category, spent_money):
     try:
         with open(f'categories\\{category}.txt', 'r', encoding='utf-8') as money:
