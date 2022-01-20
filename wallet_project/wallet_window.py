@@ -29,7 +29,7 @@ settings_menu.add_command(label='About/ How to use', command=about)
 settings_menu.add_command(label='Exit', command=win.destroy)
 menubar.add_cascade(label='Settings', menu=settings_menu)
 
-categories = ['food', 'transport pass', 'entertainment', 'medicine', 'other']
+categories = ['food', 'transport', 'entertainment', 'medicine', 'other']
 combo_categories = ttk.Combobox(win, values=categories)
 combo_categories.current(0)
 combo_categories.place(relx=0.60, rely=0.2, relwidth=0.3, relheight=0.05)
@@ -73,8 +73,8 @@ def show_all_history():
             else:
                 tk.Label(win3, text=y, fg='red', bg='white').pack(anchor='w')
 
-def show_category_history():
-    cat_name = combo_categories.get()
+def show_category_history(event):
+    cat_name = event.widget.cget('text')
     win4 = tk.Tk()
     win4.title(f'{cat_name}')
     win4.geometry('800x480+450+300')
@@ -103,7 +103,7 @@ def add_spent_money_to_category(category, spent_money):
                                                                                             relwidth=0.3,
                                                                                             relheight=0.05)
 
-        elif category == 'transport pass':
+        elif category == 'transport':
             tk.Label(win, text=f'total spent: {new_money}', bg='#3b5998', fg='white').place(relx=0.35, rely=0.62,
                                                                                             relwidth=0.3,
                                                                                             relheight=0.05)
@@ -229,11 +229,23 @@ comment.place(relx=0.5, rely=0.4, anchor='center', relwidth=0.7, height=20)
 tk.Button(win, text='Refill', command=refill, bg='white').place(relx=0.60, rely=0.45, relwidth=0.3, relheight=0.05)
 tk.Button(win, text='Withdraw', command=withdraw, bg='white').place(relx=0.1, rely=0.45, relwidth=0.3, relheight=0.05)
 
-tk.Button(win, text='food', bg='white', command= show_category_history).place(relx=0.05, rely=0.55, relwidth=0.28, relheight=0.05)
-tk.Button(win, text='transport pass', bg='white', command= show_category_history).place(relx=0.36, rely=0.55, relwidth=0.28, relheight=0.05)
-tk.Button(win, text='entertainment', bg='white', command= show_category_history).place(relx=0.67, rely=0.55, relwidth=0.28, relheight=0.05)
-tk.Button(win, text='medicine', bg='white', command= show_category_history).place(relx=0.05, rely=0.7, relwidth=0.28, relheight=0.05)
-tk.Button(win, text='other', bg='white', command= show_category_history).place(relx=0.36, rely=0.7, relwidth=0.28, relheight=0.05)
+food = tk.Button(win, text='food', bg='white')
+transport= tk.Button(win, text='transport', bg='white')
+entertainment= tk.Button(win, text='entertainment', bg='white')
+medicine= tk.Button(win, text='medicine', bg='white')
+other = tk.Button(win, text='other', bg='white')
+
+food.place(relx=0.05, rely=0.55, relwidth=0.28, relheight=0.05)
+transport.place(relx=0.36, rely=0.55, relwidth=0.28, relheight=0.05)
+entertainment.place(relx=0.67, rely=0.55, relwidth=0.28, relheight=0.05)
+medicine.place(relx=0.05, rely=0.7, relwidth=0.28, relheight=0.05)
+other.place(relx=0.36, rely=0.7, relwidth=0.28, relheight=0.05)
+
+food.bind('<Button-1>', show_category_history)
+transport.bind('<Button-1>', show_category_history)
+entertainment.bind('<Button-1>', show_category_history)
+medicine.bind('<Button-1>', show_category_history)
+other.bind('<Button-1>', show_category_history)
 
 # shows how much there is money in the wallet
 with open('wallet.txt', 'r', encoding='utf-8') as total_money:
@@ -249,7 +261,7 @@ with open('categories\\food.txt', 'r', encoding='utf-8') as money:
     tk.Label(win, text=f'total spent: {total_money}', bg='#3b5998', fg='white').place(relx=0.04, rely=0.62,
                                                                                       relwidth=0.3, relheight=0.05)
 
-with open('categories\\transport pass.txt', 'r', encoding='utf-8') as money:
+with open('categories\\transport.txt', 'r', encoding='utf-8') as money:
     total_money = float(money.read())
     tk.Label(win, text=f'total spent: {total_money}', bg='#3b5998', fg='white').place(relx=0.35, rely=0.62,
                                                                                       relwidth=0.3, relheight=0.05)
