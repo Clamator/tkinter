@@ -61,7 +61,6 @@ def show_all_history():
             else:
                 tk.Label(win3, text=x, fg='red', bg='white').pack(anchor='w')
 
-
 def add_spent_money_to_category(category, spent_money):
     try:
         with open(f'categories\\{category}.txt', 'r', encoding='utf-8') as money:
@@ -107,9 +106,8 @@ def refill():
         total_money = float(total_money.read())
         money_amount = float(number.get())
         new_total_money = money_amount + total_money
-        tk.Button(win, text=f'It is {new_total_money} in the wallet now', bg='#3b5998', font=(None, 20),
-                  fg='white', command=show_all_history).place(relx=0.5, rely=0.05, anchor='center',
-                                                              width=430,
+        tk.Button(win, text=f'It is {new_total_money} in the wallet now', bg='white', font=(None, 20), command=show_all_history).place(relx=0.5, rely=0.05, anchor='center',
+                                                              width=380,
                                                               height=40)
         number.delete(0, tk.END)
         number.insert(0, '')
@@ -140,9 +138,8 @@ def withdraw():
                 with open('wallet.txt', 'w', encoding='utf-8') as wallet:
                     wallet.write(str(new_total_money))
                 messagebox.showinfo('Withdrawing', f"you have spent {money_amount} on {current_category}")
-                tk.Button(win, text=f'It is {new_total_money} in the wallet now', bg='#3b5998', font=(None, 20),
-                          fg='white', command=show_all_history).place(relx=0.5, rely=0.05, anchor='center',
-                                                                      width=430,
+                tk.Button(win, text=f'It is {new_total_money} in the wallet now', bg='white', font=(None, 20), command=show_all_history).place(relx=0.5, rely=0.05, anchor='center',
+                                                                      width=380,
                                                                       height=40)
                 data = {
                     'operation': 'withdraw',
@@ -155,9 +152,9 @@ def withdraw():
             else:
                 new_total_money = total_money
                 messagebox.showerror('Attention', "Unknown category")
-                tk.Button(win, text=f'It is {new_total_money} in the wallet now', bg='#3b5998', font=(None, 20),
-                          fg='white', command=show_all_history).place(relx=0.5, rely=0.05, anchor='center',
-                                                                      width=430,
+                combo_categories.current(0)
+                tk.Button(win, text=f'It is {new_total_money} in the wallet now', bg='white', font=(None, 20), command=show_all_history).place(relx=0.5, rely=0.05, anchor='center',
+                                                                      width=380,
                                                                       height=40)
         else:
             messagebox.showerror('Attention', "you don't have money enough")
@@ -213,10 +210,10 @@ tk.Button(win, text='other', bg='white').place(relx=0.36, rely=0.7, relwidth=0.2
 # shows how much there is money in the wallet
 with open('wallet.txt', 'r', encoding='utf-8') as total_money:
     total_money = float(total_money.read())
-    tk.Button(win, text=f'It is {total_money} in the wallet now', bg='#3b5998', font=(None, 20), fg='white',
+    tk.Button(win, text=f'It is {total_money} in the wallet now', bg='white', font=(None, 20),
               command=show_all_history).place(
         relx=0.5, rely=0.05, anchor='center',
-        width=430,
+        width=380,
         height=40)
 # shows how much has been spent for each category
 with open('categories\\food.txt', 'r', encoding='utf-8') as money:
