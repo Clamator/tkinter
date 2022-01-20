@@ -66,3 +66,6 @@ for row in reader:
                 tk.Label(win3, text=x3, fg='red', bg='white', anchor='nw').pack(side='left')
                 tk.Label(win3, text=x4, fg='red', bg='white', anchor='nw').pack(side='left')
                 tk.Label(win3, text='\n', anchor='nw').pack(side='bottom')
+
+def show_category_history(category):
+    pass

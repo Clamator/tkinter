@@ -45,6 +45,17 @@ def write_csv(data):
             data['date']
         ))
 
+def write_csv_categ(current_category, data):
+    cat_name = current_category
+    with open(f'categories\\{cat_name}_history.csv', 'a', encoding="utf-8", newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow((
+            data['operation'],
+            data['how much'],
+            data['comment'],
+            data['date']
+        ))
+
 
 def show_all_history():
     win3 = tk.Tk()
@@ -55,11 +66,26 @@ def show_all_history():
         order = ['operation', 'how much', 'comment', 'date']
         reader = csv.DictReader(file, fieldnames=order)
         for row in reader:
-            x = f"operation: {row['operation']}, how much: {row['how much']}, comment: {row['comment']}, date: {row['date']}"
+            x = f"op: {row['operation']}, +{row['how much']}, {row['comment']}, date: {row['date'][:-10]}"
+            y = f"op: {row['operation']}, -{row['how much']}, {row['comment']}, date: {row['date'][:-10]}"
             if row['operation'] == 'refill':
                 tk.Label(win3, text=x, fg='green', bg='white').pack(anchor='w')
             else:
-                tk.Label(win3, text=x, fg='red', bg='white').pack(anchor='w')
+                tk.Label(win3, text=y, fg='red', bg='white').pack(anchor='w')
+
+def show_category_history():
+    cat_name = combo_categories.get()
+    win4 = tk.Tk()
+    win4.title(f'{cat_name}')
+    win4.geometry('800x480+450+300')
+    win4['bg'] = 'white'
+    with open(f'categories\\{cat_name}_history.csv', 'r', encoding="utf-8") as file:
+        order = ['operation', 'how much', 'comment', 'date']
+        reader = csv.DictReader(file, fieldnames=order)
+        for row in reader:
+            y = f"-{row['how much']}, {row['comment']}, date: {row['date'][:-10]}"
+            tk.Label(win4, text=y, fg='green', bg='white').pack(anchor='w')
+
 
 def add_spent_money_to_category(category, spent_money):
     try:
@@ -147,7 +173,9 @@ def withdraw():
                     'comment': comment.get(),
                     'date': datetime.now()
                 }
+
                 write_csv(data)
+                write_csv_categ(current_category, data)
 
             else:
                 new_total_money = total_money
@@ -201,11 +229,11 @@ comment.place(relx=0.5, rely=0.4, anchor='center', relwidth=0.7, height=20)
 tk.Button(win, text='Refill', command=refill, bg='white').place(relx=0.60, rely=0.45, relwidth=0.3, relheight=0.05)
 tk.Button(win, text='Withdraw', command=withdraw, bg='white').place(relx=0.1, rely=0.45, relwidth=0.3, relheight=0.05)
 
-tk.Button(win, text='food', bg='white').place(relx=0.05, rely=0.55, relwidth=0.28, relheight=0.05)
-tk.Button(win, text='transport pass', bg='white').place(relx=0.36, rely=0.55, relwidth=0.28, relheight=0.05)
-tk.Button(win, text='entertainment', bg='white').place(relx=0.67, rely=0.55, relwidth=0.28, relheight=0.05)
-tk.Button(win, text='medicine', bg='white').place(relx=0.05, rely=0.7, relwidth=0.28, relheight=0.05)
-tk.Button(win, text='other', bg='white').place(relx=0.36, rely=0.7, relwidth=0.28, relheight=0.05)
+tk.Button(win, text='food', bg='white', command= show_category_history).place(relx=0.05, rely=0.55, relwidth=0.28, relheight=0.05)
+tk.Button(win, text='transport pass', bg='white', command= show_category_history).place(relx=0.36, rely=0.55, relwidth=0.28, relheight=0.05)
+tk.Button(win, text='entertainment', bg='white', command= show_category_history).place(relx=0.67, rely=0.55, relwidth=0.28, relheight=0.05)
+tk.Button(win, text='medicine', bg='white', command= show_category_history).place(relx=0.05, rely=0.7, relwidth=0.28, relheight=0.05)
+tk.Button(win, text='other', bg='white', command= show_category_history).place(relx=0.36, rely=0.7, relwidth=0.28, relheight=0.05)
 
 # shows how much there is money in the wallet
 with open('wallet.txt', 'r', encoding='utf-8') as total_money:
