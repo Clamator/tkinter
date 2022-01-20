@@ -29,70 +29,52 @@ settings_menu.add_command(label='About/ How to use', command=about)
 settings_menu.add_command(label='Exit', command=win.destroy)
 menubar.add_cascade(label='Settings', menu=settings_menu)
 
+categories = ['food', 'transport pass', 'entertainment', 'medicine', 'other']
+combo_categories = ttk.Combobox(win, values=categories)
+combo_categories.current(0)
+combo_categories.place(relx=0.60, rely=0.2, relwidth=0.3, relheight=0.05)
 
 def add_spent_money_to_category(category, spent_money):
-    if category == 'food':
-        with open('categories\\food.txt', 'r', encoding='utf-8') as money:
+    try:
+        with open(f'categories\\{category}.txt', 'r', encoding='utf-8') as money:
             total_money = float(money.read())
             if total_money == '':
                 total_money = 0
             new_money = total_money + float(spent_money)
+
+        with open(f'categories\\{category}.txt', 'w', encoding='utf-8') as cat:
+            cat.write(str(new_money))
+
+        if category == 'food':
             tk.Label(win, text=f'total spent: {new_money}', bg='#3b5998', fg='white').place(relx=0.04, rely=0.62,
                                                                                             relwidth=0.3,
                                                                                             relheight=0.05)
-        with open('categories\\food.txt', 'w', encoding='utf-8') as cat:
-            cat.write(str(new_money))
-            # print(f'{category}')
 
-    elif category == 'transport pass':
-        with open('categories\\transport pass.txt', 'r', encoding='utf-8') as money:
-            total_money = float(money.read())
-            if total_money == '':
-                total_money = 0
-            new_money = total_money + float(spent_money)
+        elif category == 'transport pass':
             tk.Label(win, text=f'total spent: {new_money}', bg='#3b5998', fg='white').place(relx=0.35, rely=0.62,
                                                                                             relwidth=0.3,
                                                                                             relheight=0.05)
-        with open('categories\\transport pass.txt', 'w', encoding='utf-8') as cat:
-            cat.write(str(new_money))
-    elif category == 'entertainment':
-        with open('categories\entertainment.txt', 'r', encoding='utf-8') as money:
-            total_money = float(money.read())
-            if total_money == '':
-                total_money = 0
-            new_money = total_money + float(spent_money)
+
+        elif category == 'entertainment':
             tk.Label(win, text=f'total spent: {new_money}', bg='#3b5998', fg='white').place(relx=0.66, rely=0.62,
                                                                                             relwidth=0.3,
                                                                                             relheight=0.05)
-        with open('categories\entertainment.txt', 'w', encoding='utf-8') as cat:
-            cat.write(str(new_money))
-    elif category == 'medicine':
-        with open('categories\medicine.txt', 'r', encoding='utf-8') as money:
-            total_money = float(money.read())
-            if total_money == '':
-                total_money = 0
-            new_money = total_money + float(spent_money)
+
+        elif category == 'medicine':
             tk.Label(win, text=f'total spent: {new_money}', bg='#3b5998', fg='white').place(relx=0.04, rely=0.77,
                                                                                             relwidth=0.3,
                                                                                             relheight=0.05)
-        with open('categories\medicine.txt', 'w', encoding='utf-8') as cat:
-            cat.write(str(new_money))
-    elif category == 'other':
-        with open('categories\other.txt', 'r', encoding='utf-8') as money:
-            total_money = float(money.read())
-            if total_money == '':
-                total_money = 0
-            new_money = total_money + float(spent_money)
+        elif category == 'other':
             tk.Label(win, text=f'total spent: {new_money}', bg='#3b5998', fg='white').place(relx=0.35, rely=0.77,
                                                                                             relwidth=0.3,
                                                                                             relheight=0.05)
-        with open('categories\other.txt', 'w', encoding='utf-8') as cat:
-            cat.write(str(new_money))
+
+    except:
+        messagebox.showerror('Attention', "unknown category")
+        number.insert(0, '')
 
 
 def refill():
-    tk.Label(win, text='refill has been done.', bg='#3b5998', fg='white').place(relx=0.5, rely=0.3, anchor='center',
-                                                                                relwidth=0.4, relheight=0.07)
     with open('wallet.txt', 'r', encoding='utf-8') as total_money:
         total_money = float(total_money.read())
         money_amount = float(number.get())
@@ -102,7 +84,7 @@ def refill():
                                    width=430,
                                    height=20)
         number.delete(0, tk.END)
-        number.insert(0, '0')
+        number.insert(0, '')
         messagebox.showinfo('Refilling', f"you refilled your willet with {money_amount}")
 
     with open('wallet.txt', 'w', encoding='utf-8') as wallet:
@@ -110,32 +92,37 @@ def refill():
 
 
 def withdraw():
-    tk.Label(win, text='withdraw has been done.', bg='#3b5998', fg='white').place(relx=0.5, rely=0.3, anchor='center',
-                                                                                  relwidth=0.4, relheight=0.07)
     with open('wallet.txt', 'r', encoding='utf-8') as total_money:
         total_money = float(total_money.read())
         money_amount = float(number.get())
         if money_amount <= total_money:
             new_total_money = total_money - money_amount
-            tk.Label(win, text=f'It is {new_total_money} in the wallet now', bg='#3b5998', font=(None, 20),
-                     fg='white').place(relx=0.5, rely=0.05, anchor='center',
-                                       width=430,
-                                       height=20)
-            number.delete(0, tk.END)
-            number.insert(0, '0')
             current_category = combo_categories.get()
-            add_spent_money_to_category(current_category, money_amount)
-            with open('wallet.txt', 'w', encoding='utf-8') as wallet:
-                wallet.write(str(new_total_money))
-            messagebox.showinfo('Withdrawing', f"you have spent {money_amount} on {current_category}")
+            if current_category in categories:
+                add_spent_money_to_category(current_category, money_amount)
+                with open('wallet.txt', 'w', encoding='utf-8') as wallet:
+                    wallet.write(str(new_total_money))
+                messagebox.showinfo('Withdrawing', f"you have spent {money_amount} on {current_category}")
+                tk.Label(win, text=f'It is {new_total_money} in the wallet now', bg='#3b5998', font=(None, 20),
+                         fg='white').place(relx=0.5, rely=0.05, anchor='center',
+                                           width=430,
+                                           height=20)
+            else:
+                new_total_money = total_money
+                messagebox.showerror('Attention', "Unknown category")
+                tk.Label(win, text=f'It is {new_total_money} in the wallet now', bg='#3b5998', font=(None, 20),
+                         fg='white').place(relx=0.5, rely=0.05, anchor='center',
+                                           width=430,
+                                           height=20)
         else:
             messagebox.showerror('Attention', "you don't have money enough")
-            tk.Label(win, text='withdraw has not been done.', bg='#3b5998', fg='white').place(relx=0.5, rely=0.3,
-                                                                                              anchor='center',
-                                                                                              relwidth=0.4,
-                                                                                              relheight=0.07)
-            number.delete(0, tk.END)
-            number.insert(0, '0')
+            #tk.Label(win, text='withdraw has not been done.', bg='#3b5998', fg='white').place(relx=0.5, rely=0.3,
+            #                                                                                  anchor='center',
+            #                                                                                  relwidth=0.4,
+            #                                                                                  relheight=0.07)
+    number.delete(0, tk.END)
+    number.insert(0, '')
+
 
 
 def add_digit(digit):
@@ -185,10 +172,7 @@ tk.Button(win, text='entertainment', bg='white').place(relx=0.67, rely=0.55, rel
 tk.Button(win, text='medicine', bg='white').place(relx=0.05, rely=0.7, relwidth=0.28, relheight=0.05)
 tk.Button(win, text='other', bg='white').place(relx=0.36, rely=0.7, relwidth=0.28, relheight=0.05)
 
-categories = ['food', 'transport pass', 'entertainment', 'medicine', 'other']
-combo_categories = ttk.Combobox(win, values=categories)
-combo_categories.current(0)
-combo_categories.place(relx=0.60, rely=0.2, relwidth=0.3, relheight=0.05)
+
 
 
 # shows how much has been spent for each category
