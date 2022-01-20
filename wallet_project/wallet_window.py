@@ -2,14 +2,14 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 import csv
-
-
+from datetime import datetime
 
 win = tk.Tk()
 win.geometry('400x480+600+300')
 # win.attributes('-fullscreen', True)
 win.title('My wallet')
 win.minsize(400, 480)
+win.maxsize(960, 1080)
 win['bg'] = '#3b5998'
 
 
@@ -33,6 +33,34 @@ categories = ['food', 'transport pass', 'entertainment', 'medicine', 'other']
 combo_categories = ttk.Combobox(win, values=categories)
 combo_categories.current(0)
 combo_categories.place(relx=0.60, rely=0.2, relwidth=0.3, relheight=0.05)
+
+
+def write_csv(data):
+    with open('categories\\common_history.csv', 'a', encoding="utf-8", newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow((
+            data['operation'],
+            data['how much'],
+            data['comment'],
+            data['date']
+        ))
+
+
+def show_all_history():
+    win3 = tk.Tk()
+    win3.title('Wallet history')
+    win3.geometry('800x480+450+300')
+    win3['bg'] = 'white'
+    with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
+        order = ['operation', 'how much', 'comment', 'date']
+        reader = csv.DictReader(file, fieldnames=order)
+        for row in reader:
+            x = f"operation: {row['operation']}, how much: {row['how much']}, comment: {row['comment']}, date: {row['date']}"
+            if row['operation'] == 'refill':
+                tk.Label(win3, text=x, fg='green', bg='white').pack(anchor='w')
+            else:
+                tk.Label(win3, text=x, fg='red', bg='white').pack(anchor='w')
+
 
 def add_spent_money_to_category(category, spent_money):
     try:
@@ -79,16 +107,25 @@ def refill():
         total_money = float(total_money.read())
         money_amount = float(number.get())
         new_total_money = money_amount + total_money
-        tk.Label(win, text=f'It is {new_total_money} in the wallet now', bg='#3b5998', font=(None, 20),
-                 fg='white').place(relx=0.5, rely=0.05, anchor='center',
-                                   width=430,
-                                   height=20)
+        tk.Button(win, text=f'It is {new_total_money} in the wallet now', bg='#3b5998', font=(None, 20),
+                  fg='white', command=show_all_history).place(relx=0.5, rely=0.05, anchor='center',
+                                                              width=430,
+                                                              height=40)
         number.delete(0, tk.END)
         number.insert(0, '')
+
         messagebox.showinfo('Refilling', f"you refilled your willet with {money_amount}")
+        data = {
+            'operation': 'refill',
+            'how much': money_amount,
+            'comment': comment.get(),
+            'date': datetime.now()
+        }
+        write_csv(data)
 
     with open('wallet.txt', 'w', encoding='utf-8') as wallet:
         wallet.write(str(new_total_money))
+    comment.delete(0, tk.END)
 
 
 def withdraw():
@@ -103,26 +140,33 @@ def withdraw():
                 with open('wallet.txt', 'w', encoding='utf-8') as wallet:
                     wallet.write(str(new_total_money))
                 messagebox.showinfo('Withdrawing', f"you have spent {money_amount} on {current_category}")
-                tk.Label(win, text=f'It is {new_total_money} in the wallet now', bg='#3b5998', font=(None, 20),
-                         fg='white').place(relx=0.5, rely=0.05, anchor='center',
-                                           width=430,
-                                           height=20)
+                tk.Button(win, text=f'It is {new_total_money} in the wallet now', bg='#3b5998', font=(None, 20),
+                          fg='white', command=show_all_history).place(relx=0.5, rely=0.05, anchor='center',
+                                                                      width=430,
+                                                                      height=40)
+                data = {
+                    'operation': 'withdraw',
+                    'how much': money_amount,
+                    'comment': comment.get(),
+                    'date': datetime.now()
+                }
+                write_csv(data)
+
             else:
                 new_total_money = total_money
                 messagebox.showerror('Attention', "Unknown category")
-                tk.Label(win, text=f'It is {new_total_money} in the wallet now', bg='#3b5998', font=(None, 20),
-                         fg='white').place(relx=0.5, rely=0.05, anchor='center',
-                                           width=430,
-                                           height=20)
+                tk.Button(win, text=f'It is {new_total_money} in the wallet now', bg='#3b5998', font=(None, 20),
+                          fg='white', command=show_all_history).place(relx=0.5, rely=0.05, anchor='center',
+                                                                      width=430,
+                                                                      height=40)
         else:
             messagebox.showerror('Attention', "you don't have money enough")
-            #tk.Label(win, text='withdraw has not been done.', bg='#3b5998', fg='white').place(relx=0.5, rely=0.3,
+            # tk.Label(win, text='withdraw has not been done.', bg='#3b5998', fg='white').place(relx=0.5, rely=0.3,
             #                                                                                  anchor='center',
             #                                                                                  relwidth=0.4,
             #                                                                                  relheight=0.07)
     number.delete(0, tk.END)
-    number.insert(0, '')
-
+    comment.delete(0, tk.END)
 
 
 def add_digit(digit):
@@ -133,7 +177,7 @@ def add_digit(digit):
     number.insert(0, value + str(digit))
 
 
-#def press_key(event):
+# def press_key(event):
 #    if event.char.isdigit():
 #        add_digit(event.char)
 #    elif event.char == 'w':
@@ -143,25 +187,19 @@ def add_digit(digit):
 #    elif event.char == 'c':
 #        number.delete(0, tk.END)
 #        number.insert(0, '0')
-#win.bind('<Key>', press_key)
+# win.bind('<Key>', press_key)
 
-with open('wallet.txt', 'r', encoding='utf-8') as total_money:
-    total_money = float(total_money.read())
-    tk.Label(win, text=f'It is {total_money} in the wallet now', bg='#3b5998', font=(None, 20), fg='white').place(
-        relx=0.5, rely=0.05, anchor='center',
-        width=430,
-        height=20)
 
 tk.Label(win, text=f'Enter a necessary number ->', bg='#3b5998', fg='white').place(relx=0.05, rely=0.10, relwidth=0.4,
                                                                                    relheight=0.05)
 tk.Label(win, text='Choose withdraw category ->', bg='#3b5998', fg='white').place(relx=0.05, rely=0.2, relwidth=0.4,
-                                                                               relheight=0.05)
+                                                                                  relheight=0.05)
 number = tk.Entry(win, justify=tk.RIGHT)
-#number.insert(0, '0')
+# number.insert(0, '0')
 number.place(relx=0.60, rely=0.10, relwidth=0.3, relheight=0.05)
 
-commentary = tk.Entry(win, justify=tk.RIGHT)
-commentary.place(relx=0.5, rely=0.4, anchor='center', relwidth=0.7, height=20)
+comment = tk.Entry(justify=tk.RIGHT)
+comment.place(relx=0.5, rely=0.4, anchor='center', relwidth=0.7, height=20)
 
 tk.Button(win, text='Refill', command=refill, bg='white').place(relx=0.60, rely=0.45, relwidth=0.3, relheight=0.05)
 tk.Button(win, text='Withdraw', command=withdraw, bg='white').place(relx=0.1, rely=0.45, relwidth=0.3, relheight=0.05)
@@ -172,9 +210,14 @@ tk.Button(win, text='entertainment', bg='white').place(relx=0.67, rely=0.55, rel
 tk.Button(win, text='medicine', bg='white').place(relx=0.05, rely=0.7, relwidth=0.28, relheight=0.05)
 tk.Button(win, text='other', bg='white').place(relx=0.36, rely=0.7, relwidth=0.28, relheight=0.05)
 
-
-
-
+# shows how much there is money in the wallet
+with open('wallet.txt', 'r', encoding='utf-8') as total_money:
+    total_money = float(total_money.read())
+    tk.Button(win, text=f'It is {total_money} in the wallet now', bg='#3b5998', font=(None, 20), fg='white',
+              command=show_all_history).place(
+        relx=0.5, rely=0.05, anchor='center',
+        width=430,
+        height=40)
 # shows how much has been spent for each category
 with open('categories\\food.txt', 'r', encoding='utf-8') as money:
     total_money = float(money.read())
@@ -200,8 +243,6 @@ with open('categories\other.txt', 'r', encoding='utf-8') as money:
     total_money = float(money.read())
     tk.Label(win, text=f'total spent: {total_money}', bg='#3b5998', fg='white').place(relx=0.35, rely=0.77,
                                                                                       relwidth=0.3, relheight=0.05)
-
-
 
 if __name__ == '__main__':
     tk.mainloop()
