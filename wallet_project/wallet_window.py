@@ -1,6 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+import csv
+
+
 
 win = tk.Tk()
 win.geometry('400x480+600+300')
@@ -8,6 +11,7 @@ win.geometry('400x480+600+300')
 win.title('My wallet')
 win.minsize(400, 480)
 win['bg'] = '#3b5998'
+
 
 def about():
     win2 = tk.Tk()
@@ -33,7 +37,7 @@ def add_spent_money_to_category(category, spent_money):
             if total_money == '':
                 total_money = 0
             new_money = total_money + float(spent_money)
-            tk.Label(win, text=f'total spent: {new_money}', bg='#3b5998', fg='white').place(relx=0.04, rely=0.57,
+            tk.Label(win, text=f'total spent: {new_money}', bg='#3b5998', fg='white').place(relx=0.04, rely=0.62,
                                                                                             relwidth=0.3,
                                                                                             relheight=0.05)
         with open('categories\\food.txt', 'w', encoding='utf-8') as cat:
@@ -46,7 +50,7 @@ def add_spent_money_to_category(category, spent_money):
             if total_money == '':
                 total_money = 0
             new_money = total_money + float(spent_money)
-            tk.Label(win, text=f'total spent: {new_money}', bg='#3b5998', fg='white').place(relx=0.35, rely=0.57,
+            tk.Label(win, text=f'total spent: {new_money}', bg='#3b5998', fg='white').place(relx=0.35, rely=0.62,
                                                                                             relwidth=0.3,
                                                                                             relheight=0.05)
         with open('categories\\transport pass.txt', 'w', encoding='utf-8') as cat:
@@ -57,7 +61,7 @@ def add_spent_money_to_category(category, spent_money):
             if total_money == '':
                 total_money = 0
             new_money = total_money + float(spent_money)
-            tk.Label(win, text=f'total spent: {new_money}', bg='#3b5998', fg='white').place(relx=0.66, rely=0.57,
+            tk.Label(win, text=f'total spent: {new_money}', bg='#3b5998', fg='white').place(relx=0.66, rely=0.62,
                                                                                             relwidth=0.3,
                                                                                             relheight=0.05)
         with open('categories\entertainment.txt', 'w', encoding='utf-8') as cat:
@@ -68,7 +72,7 @@ def add_spent_money_to_category(category, spent_money):
             if total_money == '':
                 total_money = 0
             new_money = total_money + float(spent_money)
-            tk.Label(win, text=f'total spent: {new_money}', bg='#3b5998', fg='white').place(relx=0.04, rely=0.72,
+            tk.Label(win, text=f'total spent: {new_money}', bg='#3b5998', fg='white').place(relx=0.04, rely=0.77,
                                                                                             relwidth=0.3,
                                                                                             relheight=0.05)
         with open('categories\medicine.txt', 'w', encoding='utf-8') as cat:
@@ -79,7 +83,7 @@ def add_spent_money_to_category(category, spent_money):
             if total_money == '':
                 total_money = 0
             new_money = total_money + float(spent_money)
-            tk.Label(win, text=f'total spent: {new_money}', bg='#3b5998', fg='white').place(relx=0.35, rely=0.72,
+            tk.Label(win, text=f'total spent: {new_money}', bg='#3b5998', fg='white').place(relx=0.35, rely=0.77,
                                                                                             relwidth=0.3,
                                                                                             relheight=0.05)
         with open('categories\other.txt', 'w', encoding='utf-8') as cat:
@@ -103,7 +107,6 @@ def refill():
 
     with open('wallet.txt', 'w', encoding='utf-8') as wallet:
         wallet.write(str(new_total_money))
-
 
 
 def withdraw():
@@ -143,17 +146,17 @@ def add_digit(digit):
     number.insert(0, value + str(digit))
 
 
-def press_key(event):
-    if event.char.isdigit():
-        add_digit(event.char)
-    elif event.char == 'w':
-        withdraw()
-    elif event.char == 'r':
-        refill()
-    elif event.char == 'c':
-        number.delete(0, tk.END)
-        number.insert(0, '0')
-
+#def press_key(event):
+#    if event.char.isdigit():
+#        add_digit(event.char)
+#    elif event.char == 'w':
+#        withdraw()
+#    elif event.char == 'r':
+#        refill()
+#    elif event.char == 'c':
+#        number.delete(0, tk.END)
+#        number.insert(0, '0')
+#win.bind('<Key>', press_key)
 
 with open('wallet.txt', 'r', encoding='utf-8') as total_money:
     total_money = float(total_money.read())
@@ -164,52 +167,57 @@ with open('wallet.txt', 'r', encoding='utf-8') as total_money:
 
 tk.Label(win, text=f'Enter a necessary number ->', bg='#3b5998', fg='white').place(relx=0.05, rely=0.10, relwidth=0.4,
                                                                                    relheight=0.05)
-tk.Label(win, text='Choose withdraw category', bg='#3b5998', fg='white').place(relx=0.05, rely=0.34, relwidth=0.4,
+tk.Label(win, text='Choose withdraw category ->', bg='#3b5998', fg='white').place(relx=0.05, rely=0.2, relwidth=0.4,
                                                                                relheight=0.05)
 number = tk.Entry(win, justify=tk.RIGHT)
-number.insert(0, '0')
+#number.insert(0, '0')
 number.place(relx=0.60, rely=0.10, relwidth=0.3, relheight=0.05)
-tk.Button(win, text='Refill', command=refill, bg='white').place(relx=0.60, rely=0.2, relwidth=0.3, relheight=0.05)
-tk.Button(win, text='Withdraw', command=withdraw, bg='white').place(relx=0.1, rely=0.2, relwidth=0.3, relheight=0.05)
 
-tk.Button(win, text='food', bg='white').place(relx=0.05, rely=0.5, relwidth=0.28, relheight=0.05)
-tk.Button(win, text='transport pass', bg='white').place(relx=0.36, rely=0.5, relwidth=0.28, relheight=0.05)
-tk.Button(win, text='entertainment', bg='white').place(relx=0.67, rely=0.5, relwidth=0.28, relheight=0.05)
-tk.Button(win, text='medicine', bg='white').place(relx=0.05, rely=0.65, relwidth=0.28, relheight=0.05)
-tk.Button(win, text='other', bg='white').place(relx=0.36, rely=0.65, relwidth=0.28, relheight=0.05)
+commentary = tk.Entry(win, justify=tk.RIGHT)
+commentary.place(relx=0.5, rely=0.4, anchor='center', relwidth=0.7, height=20)
+
+tk.Button(win, text='Refill', command=refill, bg='white').place(relx=0.60, rely=0.45, relwidth=0.3, relheight=0.05)
+tk.Button(win, text='Withdraw', command=withdraw, bg='white').place(relx=0.1, rely=0.45, relwidth=0.3, relheight=0.05)
+
+tk.Button(win, text='food', bg='white').place(relx=0.05, rely=0.55, relwidth=0.28, relheight=0.05)
+tk.Button(win, text='transport pass', bg='white').place(relx=0.36, rely=0.55, relwidth=0.28, relheight=0.05)
+tk.Button(win, text='entertainment', bg='white').place(relx=0.67, rely=0.55, relwidth=0.28, relheight=0.05)
+tk.Button(win, text='medicine', bg='white').place(relx=0.05, rely=0.7, relwidth=0.28, relheight=0.05)
+tk.Button(win, text='other', bg='white').place(relx=0.36, rely=0.7, relwidth=0.28, relheight=0.05)
 
 categories = ['food', 'transport pass', 'entertainment', 'medicine', 'other']
 combo_categories = ttk.Combobox(win, values=categories)
 combo_categories.current(0)
-combo_categories.place(relx=0.60, rely=0.34, relwidth=0.3, relheight=0.05)
+combo_categories.place(relx=0.60, rely=0.2, relwidth=0.3, relheight=0.05)
 
-# shows how much has been spent for a category
+
+# shows how much has been spent for each category
 with open('categories\\food.txt', 'r', encoding='utf-8') as money:
     total_money = float(money.read())
-    tk.Label(win, text=f'total spent: {total_money}', bg='#3b5998', fg='white').place(relx=0.04, rely=0.57,
+    tk.Label(win, text=f'total spent: {total_money}', bg='#3b5998', fg='white').place(relx=0.04, rely=0.62,
                                                                                       relwidth=0.3, relheight=0.05)
 
 with open('categories\\transport pass.txt', 'r', encoding='utf-8') as money:
     total_money = float(money.read())
-    tk.Label(win, text=f'total spent: {total_money}', bg='#3b5998', fg='white').place(relx=0.35, rely=0.57,
+    tk.Label(win, text=f'total spent: {total_money}', bg='#3b5998', fg='white').place(relx=0.35, rely=0.62,
                                                                                       relwidth=0.3, relheight=0.05)
 
 with open('categories\entertainment.txt', 'r', encoding='utf-8') as money:
     total_money = float(money.read())
-    tk.Label(win, text=f'total spent: {total_money}', bg='#3b5998', fg='white').place(relx=0.66, rely=0.57,
+    tk.Label(win, text=f'total spent: {total_money}', bg='#3b5998', fg='white').place(relx=0.66, rely=0.62,
                                                                                       relwidth=0.3, relheight=0.05)
 
 with open('categories\medicine.txt', 'r', encoding='utf-8') as money:
     total_money = float(money.read())
-    tk.Label(win, text=f'total spent: {total_money}', bg='#3b5998', fg='white').place(relx=0.04, rely=0.72,
+    tk.Label(win, text=f'total spent: {total_money}', bg='#3b5998', fg='white').place(relx=0.04, rely=0.77,
                                                                                       relwidth=0.3, relheight=0.05)
 
 with open('categories\other.txt', 'r', encoding='utf-8') as money:
     total_money = float(money.read())
-    tk.Label(win, text=f'total spent: {total_money}', bg='#3b5998', fg='white').place(relx=0.35, rely=0.72,
+    tk.Label(win, text=f'total spent: {total_money}', bg='#3b5998', fg='white').place(relx=0.35, rely=0.77,
                                                                                       relwidth=0.3, relheight=0.05)
 
-win.bind('<Key>', press_key)
+
 
 if __name__ == '__main__':
     tk.mainloop()
