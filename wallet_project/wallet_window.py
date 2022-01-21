@@ -76,8 +76,8 @@ def show_all_history():
         reader = csv.DictReader(file, fieldnames=order)
         text.configure(state=tk.NORMAL)
         for row in reader:
-            x = f"op: {row['operation']}, +{row['how much']}$, {row['comment']}, date: {row['date'][:-10]} \n"
-            y = f"op: {row['operation']}, -{row['how much']}$, {row['comment']}, date: {row['date'][:-10]} \n"
+            x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+            y = f"op: {row['operation']}, -{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
             if row['operation'] == 'refill':
                 text.insert(1.0, x)
             else:
