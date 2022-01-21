@@ -70,7 +70,7 @@ def show_all_history():
     settings_menu2 = tk.Menu(menubar2, tearoff=0)
     settings_menu2.add_command(label='Show only refill', command=show_refill)
     settings_menu2.add_command(label='Show only withdraw', command=show_withdraw)
-    #settings_menu2.add_command(label='Show all', command=show_all_history)
+    settings_menu2.add_command(label='Show all', command=show_all_history)
     menubar2.add_cascade(label='Settings', menu=settings_menu2)
 
     text = tk.Text(win3, width=100, height=40, bg="white", wrap=WORD)
