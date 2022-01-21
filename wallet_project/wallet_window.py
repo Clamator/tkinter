@@ -147,10 +147,10 @@ def add_spent_money_to_category(category, spent_money):
 
 def delete_all_history():
     categories = ['food', 'transport', 'entertainment', 'medicine', 'other']
+    null_amount_new = '0.0'
     for category in categories:
         amount = open(f'categories\\{category}.txt', 'w', encoding='utf-8')
-        null_amount_new = '0.0'
-        amount.write(str())
+        amount.write(str(null_amount_new))
         tk.Label(win, text=f'total spent: {null_amount_new}', bg='#3b5998', fg='white').place(relx=0.04, rely=0.62,
                                                                                               relwidth=0.3,
                                                                                               relheight=0.05)
