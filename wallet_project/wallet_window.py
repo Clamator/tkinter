@@ -151,6 +151,14 @@ def refill():
         number.delete(0, tk.END)
         number.insert(0, '')
 
+        earned_money = float(open('categories\\total_earned.txt').read())
+        new_earned_money = money_amount + earned_money
+        tk.Label(win, text=f'Total earned: \n{new_earned_money}', bg='#3b5998', fg='green', font=(None, 15)).place(relx=0.55,
+                                                                                                      rely=0.1,
+                                                                                                      relwidth=0.4,
+                                                                                                      relheight=0.1)
+        open('categories\\total_earned.txt', 'w').write(str(new_earned_money))
+
         messagebox.showinfo('Refilling', f"you refilled your willet with {money_amount}")
         data = {
             'operation': 'refill',
@@ -186,7 +194,11 @@ def withdraw():
                     'comment': comment.get(),
                     'date': datetime.now()
                 }
-
+                spent_money1 = float(open('categories\\total_spent.txt').read())
+                new_spent_money1 = money_amount + spent_money1
+                tk.Label(win, text=f'Total spent: \n{new_spent_money1}', bg='#3b5998', fg='red',
+                         font=(None, 15)).place(relx=0.05, rely=0.1, relwidth=0.4, relheight=0.1)
+                open('categories\\total_spent.txt', 'w').write(str(new_spent_money1))
                 write_csv(data)
                 write_csv_categ(current_category, data)
 
