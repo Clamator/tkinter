@@ -10,6 +10,6 @@ menubar.add_cascade(label='Settings', menu=settings_menu)
 text = tk.Text(win, width=100, height=40, bg="white", wrap='word')
 text.pack(side='left')
 
-win2 = tk.Tk()
+win2 = tk.Toplevel()
 
 win.mainloop()

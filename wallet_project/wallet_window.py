@@ -15,7 +15,7 @@ win['bg'] = '#3b5998'
 
 
 def about():
-    win2 = tk.Tk()
+    win2 = tk.Toplevel()
     win2.resizable(False, False)
     # win2.geometry('600x400+600+300')
     win2.title('About/ How to use')
@@ -62,7 +62,7 @@ def write_csv_categ(current_category, data):
 
 
 def show_all_history():
-    win3 = tk.Tk()
+    win3 = tk.Toplevel()
     win3.title('Wallet history')
     win3.resizable(False, False)
     menubar2 = tk.Menu(win3)
@@ -124,7 +124,7 @@ def show_withdraw():
 
 def show_category_history(event):
     cat_name = event.widget.cget('text')
-    win4 = tk.Tk()
+    win4 = tk.Toplevel()
     win4.resizable(False, False)
     win4.title(f'{cat_name}')
     text = Text(win4, width=100, height=40, bg="white", wrap=WORD)
