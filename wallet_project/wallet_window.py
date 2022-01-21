@@ -73,12 +73,6 @@ def show_all_history():
     scroll = Scrollbar(win3, command=text.yview)
     scroll.pack(side=LEFT, fill=Y)
 
-    settings_menu2 = tk.Menu(menubar2, tearoff=0)
-    settings_menu2.add_command(label='Show only refill', command=show_refill)
-    settings_menu2.add_command(label='Show only withdraw', command=show_withdraw)
-    settings_menu2.add_command(label='Show all', command=show_all_history)
-    menubar2.add_cascade(label='Settings', menu=settings_menu2)
-
     text.config(yscrollcommand=scroll.set)
     with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
         order = ['operation', 'how much', 'comment', 'date']
@@ -94,33 +88,51 @@ def show_all_history():
         text.configure(state=tk.DISABLED)
 
 
-def show_refill():
-    pass
-    # text.delete("1.0", "end")
-    # with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
-    #    order = ['operation', 'how much', 'comment', 'date']
-    #    reader = csv.DictReader(file, fieldnames=order)
-    #    text.configure(state=tk.NORMAL)
-    #    for row in reader:
-    #        x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-    #        if row['operation'] == 'refill':
-    #            text.insert(1.0, x)
-    #    text.configure(state=tk.DISABLED)
+    def show_refill():
+        text.configure(state=tk.NORMAL)
+        text.delete("1.0", "end")
+        with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
+           order = ['operation', 'how much', 'comment', 'date']
+           reader = csv.DictReader(file, fieldnames=order)
+           for row in reader:
+               x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+               if row['operation'] == 'refill':
+                   text.insert(1.0, x)
+           text.configure(state=tk.DISABLED)
 
 
-def show_withdraw():
-    pass
-    # text.delete("1.0","end")
-    # with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
-    #    order = ['operation', 'how much', 'comment', 'date']
-    #    reader = csv.DictReader(file, fieldnames=order)
-    #    text.configure(state=tk.NORMAL)
-    #    for row in reader:
-    #        y = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-    #        if row['operation'] == 'withdraw':
-    #            text.insert(1.0, y)
-    #    text.configure(state=tk.DISABLED)
+    def show_withdraw():
+        text.configure(state=tk.NORMAL)
+        text.delete("1.0","end")
+        with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
+           order = ['operation', 'how much', 'comment', 'date']
+           reader = csv.DictReader(file, fieldnames=order)
+           for row in reader:
+               y = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+               if row['operation'] == 'withdraw':
+                   text.insert(1.0, y)
+           text.configure(state=tk.DISABLED)
 
+    def show_all():
+        with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
+            order = ['operation', 'how much', 'comment', 'date']
+            reader = csv.DictReader(file, fieldnames=order)
+            text.configure(state=tk.NORMAL)
+            for row in reader:
+                x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+                y = f"op: {row['operation']}, -{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+                if row['operation'] == 'refill':
+                    text.insert(1.0, x)
+                else:
+                    text.insert(1.0, y)
+            text.configure(state=tk.DISABLED)
+
+
+    settings_menu2 = tk.Menu(menubar2, tearoff=0)
+    settings_menu2.add_command(label='Show only refill', command=show_refill)
+    settings_menu2.add_command(label='Show only withdraw', command=show_withdraw)
+    settings_menu2.add_command(label='Show all', command=show_all)
+    menubar2.add_cascade(label='Settings', menu=settings_menu2)
 
 def show_category_history(event):
     cat_name = event.widget.cget('text')
