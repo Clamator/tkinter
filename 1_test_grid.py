@@ -49,7 +49,12 @@ for category in categories:
     writer = csv.writer(file)
     writer.writerow((data['operation']))
 
-
+#menubar = tk.Menu(win)
+#win.config(menu=menubar)
+#settings_menu = tk.Menu(menubar, tearoff=0)
+#settings_menu.add_command(label='About/ How to use', command=about)
+#settings_menu.add_command(label='Exit', command=win.destroy)
+#menubar.add_cascade(label='Settings', menu=settings_menu)
 
 
 

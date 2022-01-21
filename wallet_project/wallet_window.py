@@ -10,7 +10,7 @@ win.geometry('400x480+600+300')
 # win.attributes('-fullscreen', True)
 win.title('My wallet')
 win.minsize(400, 480)
-win.maxsize(960, 1080)
+#win.maxsize(960, 960)
 win['bg'] = '#3b5998'
 
 
@@ -65,7 +65,15 @@ def show_all_history():
     win3 = tk.Tk()
     win3.title('Wallet history')
     win3.resizable(False, False)
-    text = Text(win3, width=100, height=40, bg="white", wrap=WORD)
+    menubar2 = tk.Menu(win3)
+    win3.config(menu=menubar2)
+    settings_menu2 = tk.Menu(menubar2, tearoff=0)
+    settings_menu2.add_command(label='Show only refill', command=show_refill)
+    settings_menu2.add_command(label='Show only withdraw', command=show_withdraw)
+    #settings_menu2.add_command(label='Show all', command=show_all_history)
+    menubar2.add_cascade(label='Settings', menu=settings_menu2)
+
+    text = tk.Text(win3, width=100, height=40, bg="white", wrap=WORD)
     text.pack(side=LEFT)
     scroll = Scrollbar(win3, command=text.yview)
     scroll.pack(side=LEFT, fill=Y)
@@ -83,6 +91,12 @@ def show_all_history():
             else:
                 text.insert(1.0, y)
         text.configure(state=tk.DISABLED)
+
+def show_refill():
+    pass
+
+def show_withdraw():
+    pass
 
 
 def show_category_history(event):
@@ -182,9 +196,6 @@ def delete_all_history():
     tk.Label(win, text=f'Total earned: \n{new_earned_money2}', bg='#3b5998', fg='#0fff83', font=(None, 15)).place(
         relx=0.55, rely=0.1, relwidth=0.4, relheight=0.1)
     open('categories\\total_earned.txt', 'w').write(str(new_earned_money2))
-
-
-
 
 
 def refill():

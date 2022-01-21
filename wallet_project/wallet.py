@@ -1,17 +1,13 @@
-file = open('lection.txt')
-file.read()
+import tkinter as tk
+win = tk.Tk()
+menubar = tk.Menu(win)
+win.config(menu=menubar)
+settings_menu = tk.Menu(menubar, tearoff=0)
+settings_menu.add_command(label='About/ How to use')
+settings_menu.add_command(label='Exit')
+menubar.add_cascade(label='Settings', menu=settings_menu)
 
-for row in file:
-    print(row)
+text = tk.Text(win, width=100, height=40, bg="white", wrap='word')
+text.pack(side='left')
 
-data_earned = open('categories\\total_spent.txt').read()
-data_earned.write(money_amount)
-data_earned.close
-
-        data_earned = open('categories\\total_earned.txt', 'r')
-        data_earned.read()
-        data_earned.write(str(money_amount) + str(data_earned))
-        data_earned = open('categories\\total_earned.txt', 'w')
-        tk.Label(win, text=f'Total earned: \n{data}', bg='#3b5998', fg='green', font=(None, 15)).place(relx=0.55, rely=0.1,
-                                                                                                       relwidth=0.4,
-                                                                                                       relheight=0.1)
+win.mainloop()
