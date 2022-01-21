@@ -10,7 +10,7 @@ win.geometry('400x480+600+300')
 # win.attributes('-fullscreen', True)
 win.title('My wallet')
 win.minsize(400, 480)
-#win.maxsize(960, 960)
+# win.maxsize(960, 960)
 win['bg'] = '#3b5998'
 
 
@@ -93,10 +93,11 @@ def show_all_history():
                 text.insert(1.0, y)
         text.configure(state=tk.DISABLED)
 
+
 def show_refill():
     pass
-    #text.delete("1.0", "end")
-    #with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
+    # text.delete("1.0", "end")
+    # with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
     #    order = ['operation', 'how much', 'comment', 'date']
     #    reader = csv.DictReader(file, fieldnames=order)
     #    text.configure(state=tk.NORMAL)
@@ -106,10 +107,11 @@ def show_refill():
     #            text.insert(1.0, x)
     #    text.configure(state=tk.DISABLED)
 
+
 def show_withdraw():
     pass
-    #text.delete("1.0","end")
-    #with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
+    # text.delete("1.0","end")
+    # with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
     #    order = ['operation', 'how much', 'comment', 'date']
     #    reader = csv.DictReader(file, fieldnames=order)
     #    text.configure(state=tk.NORMAL)
