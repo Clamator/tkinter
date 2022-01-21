@@ -67,16 +67,17 @@ def show_all_history():
     win3.resizable(False, False)
     menubar2 = tk.Menu(win3)
     win3.config(menu=menubar2)
-    settings_menu2 = tk.Menu(menubar2, tearoff=0)
-    settings_menu2.add_command(label='Show only refill', command=show_refill)
-    settings_menu2.add_command(label='Show only withdraw', command=show_withdraw)
-    settings_menu2.add_command(label='Show all', command=show_all_history)
-    menubar2.add_cascade(label='Settings', menu=settings_menu2)
 
     text = tk.Text(win3, width=100, height=40, bg="white", wrap=WORD)
     text.pack(side=LEFT)
     scroll = Scrollbar(win3, command=text.yview)
     scroll.pack(side=LEFT, fill=Y)
+
+    settings_menu2 = tk.Menu(menubar2, tearoff=0)
+    settings_menu2.add_command(label='Show only refill', command=show_refill)
+    settings_menu2.add_command(label='Show only withdraw', command=show_withdraw)
+    settings_menu2.add_command(label='Show all', command=show_all_history)
+    menubar2.add_cascade(label='Settings', menu=settings_menu2)
 
     text.config(yscrollcommand=scroll.set)
     with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
@@ -94,9 +95,29 @@ def show_all_history():
 
 def show_refill():
     pass
+    #text.delete("1.0", "end")
+    #with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
+    #    order = ['operation', 'how much', 'comment', 'date']
+    #    reader = csv.DictReader(file, fieldnames=order)
+    #    text.configure(state=tk.NORMAL)
+    #    for row in reader:
+    #        x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+    #        if row['operation'] == 'refill':
+    #            text.insert(1.0, x)
+    #    text.configure(state=tk.DISABLED)
 
 def show_withdraw():
     pass
+    #text.delete("1.0","end")
+    #with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
+    #    order = ['operation', 'how much', 'comment', 'date']
+    #    reader = csv.DictReader(file, fieldnames=order)
+    #    text.configure(state=tk.NORMAL)
+    #    for row in reader:
+    #        y = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+    #        if row['operation'] == 'withdraw':
+    #            text.insert(1.0, y)
+    #    text.configure(state=tk.DISABLED)
 
 
 def show_category_history(event):
