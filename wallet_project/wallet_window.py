@@ -16,6 +16,7 @@ win['bg'] = '#3b5998'
 
 def about():
     win2 = tk.Tk()
+    win2.resizable(False, False)
     # win2.geometry('600x400+600+300')
     win2.title('About/ How to use')
     text = tk.Text(win2, width=100, height=40, bg="white", wrap=WORD)
@@ -63,6 +64,7 @@ def write_csv_categ(current_category, data):
 def show_all_history():
     win3 = tk.Tk()
     win3.title('Wallet history')
+    win3.resizable(False, False)
     text = Text(win3, width=100, height=40, bg="white", wrap=WORD)
     text.pack(side=LEFT)
     scroll = Scrollbar(win3, command=text.yview)
@@ -86,7 +88,7 @@ def show_all_history():
 def show_category_history(event):
     cat_name = event.widget.cget('text')
     win4 = tk.Tk()
-
+    win4.resizable(False, False)
     win4.title(f'{cat_name}')
     text = Text(win4, width=100, height=40, bg="white", wrap=WORD)
     text.pack(side=LEFT)
@@ -180,6 +182,10 @@ def delete_all_history():
     tk.Label(win, text=f'Total earned: \n{new_earned_money2}', bg='#3b5998', fg='#0fff83', font=(None, 15)).place(
         relx=0.55, rely=0.1, relwidth=0.4, relheight=0.1)
     open('categories\\total_earned.txt', 'w').write(str(new_earned_money2))
+
+
+
+
 
 def refill():
     with open('wallet.txt', 'r', encoding='utf-8') as total_money:

@@ -5,7 +5,6 @@ to withdraw - click 'w'
 to clear an entry window - click 'c'
 avoid to click on entry window, in that case you should click Tab once (this bug is in correction process)
 
-also i'm going to add month zeroing on money waste, wasting history, category addind and other things
 
 created by Clamator on January 2022
 https://github.com/Clamator
