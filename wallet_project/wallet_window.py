@@ -4,6 +4,10 @@ from tkinter import messagebox
 from tkinter import *
 import csv
 from datetime import datetime
+import matplotlib.pyplot as plt
+from matplotlib.ticker import NullLocator, MultipleLocator, MaxNLocator
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
 
 win = tk.Tk()
 win.geometry('400x480+600+300')
@@ -30,12 +34,35 @@ def about():
     win2.mainloop()
 
 
+def pie_chart():
+    fig = plt.Figure(figsize=(5, 5), dpi=100)
+    ax = fig.add_subplot(111)
+    vals = [23, 16, 21, 18, 22]
+    x = 'category: '
+    labels = [f'{x}food', f'{x}transport', f'{x}entertainment', f'{x}medicine', f'{x}other']
+    exp = (0.1, 0.1, 0.1, 0.1, 0.1)
+    ax.pie(vals, labels=labels, autopct='%.2f', explode=exp, shadow=True)
+    ax.grid()
+
+    plt.show()
+
+
+
+def show_pie_chart():
+    win_pie = tk.Toplevel()
+    win_pie.title('Pie chart')
+    win_pie.geometry('400x480+600+300')
+    win_pie.minsize(400, 480)
+    canvas = tk.Canvas(win_pie)
+    canvas.pack()
+
 menubar = tk.Menu(win)
 win.config(menu=menubar)
 settings_menu = tk.Menu(menubar, tearoff=0)
+settings_menu.add_command(label='Show pie chart', command=show_pie_chart)
 settings_menu.add_command(label='About/ How to use', command=about)
 settings_menu.add_command(label='Exit', command=win.destroy)
-menubar.add_cascade(label='Settings', menu=settings_menu)
+menubar.add_cascade(label='Options', menu=settings_menu)
 
 
 def write_csv(data):
