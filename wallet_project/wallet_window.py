@@ -87,31 +87,29 @@ def show_all_history():
                 text.insert(1.0, y)
         text.configure(state=tk.DISABLED)
 
-
     def show_refill():
         text.configure(state=tk.NORMAL)
         text.delete("1.0", "end")
         with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
-           order = ['operation', 'how much', 'comment', 'date']
-           reader = csv.DictReader(file, fieldnames=order)
-           for row in reader:
-               x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-               if row['operation'] == 'refill':
-                   text.insert(1.0, x)
-           text.configure(state=tk.DISABLED)
-
+            order = ['operation', 'how much', 'comment', 'date']
+            reader = csv.DictReader(file, fieldnames=order)
+            for row in reader:
+                x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+                if row['operation'] == 'refill':
+                    text.insert(1.0, x)
+            text.configure(state=tk.DISABLED)
 
     def show_withdraw():
         text.configure(state=tk.NORMAL)
-        text.delete("1.0","end")
+        text.delete("1.0", "end")
         with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
-           order = ['operation', 'how much', 'comment', 'date']
-           reader = csv.DictReader(file, fieldnames=order)
-           for row in reader:
-               y = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-               if row['operation'] == 'withdraw':
-                   text.insert(1.0, y)
-           text.configure(state=tk.DISABLED)
+            order = ['operation', 'how much', 'comment', 'date']
+            reader = csv.DictReader(file, fieldnames=order)
+            for row in reader:
+                y = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+                if row['operation'] == 'withdraw':
+                    text.insert(1.0, y)
+            text.configure(state=tk.DISABLED)
 
     def show_all():
         with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
@@ -127,12 +125,12 @@ def show_all_history():
                     text.insert(1.0, y)
             text.configure(state=tk.DISABLED)
 
-
     settings_menu2 = tk.Menu(menubar2, tearoff=0)
     settings_menu2.add_command(label='Show only refill', command=show_refill)
     settings_menu2.add_command(label='Show only withdraw', command=show_withdraw)
     settings_menu2.add_command(label='Show all', command=show_all)
     menubar2.add_cascade(label='Settings', menu=settings_menu2)
+
 
 def show_category_history(event):
     cat_name = event.widget.cget('text')
