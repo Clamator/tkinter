@@ -59,8 +59,6 @@ def show_pie_chart():
     canvas = FigureCanvasTkAgg(fig, master=win_pie)
     canvas.get_tk_widget().pack()
     canvas.draw()
-
-
     plt.show()
 
 
