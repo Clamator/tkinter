@@ -5,8 +5,9 @@ from tkinter import *
 import csv
 from datetime import datetime
 import matplotlib.pyplot as plt
-from matplotlib.ticker import NullLocator, MultipleLocator, MaxNLocator
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
+from matplotlib.figure import Figure
+import numpy as np
 
 
 win = tk.Tk()
@@ -34,27 +35,34 @@ def about():
     win2.mainloop()
 
 
-def pie_chart():
-    fig = plt.Figure(figsize=(5, 5), dpi=100)
-    ax = fig.add_subplot(111)
-    vals = [23, 16, 21, 18, 22]
-    x = 'category: '
-    labels = [f'{x}food', f'{x}transport', f'{x}entertainment', f'{x}medicine', f'{x}other']
-    exp = (0.1, 0.1, 0.1, 0.1, 0.1)
-    ax.pie(vals, labels=labels, autopct='%.2f', explode=exp, shadow=True)
-    ax.grid()
+#def pie_chart():
 
-    plt.show()
 
 
 
 def show_pie_chart():
     win_pie = tk.Toplevel()
     win_pie.title('Pie chart')
-    win_pie.geometry('400x480+600+300')
+    win_pie.geometry('800x600+600+300')
     win_pie.minsize(400, 480)
-    canvas = tk.Canvas(win_pie)
-    canvas.pack()
+    fig = plt.Figure(figsize=(8, 8), dpi=100)
+    ax = fig.add_subplot(111)
+    vals = [23, 16, 21, 18, 22]
+    x = 'category: '
+    labels = [f'{x}food', f'{x}transport', f'{x}entertainment', f'{x}medicine', f'{x}other']
+    exp = (0.1, 0.1, 0.1, 0.1, 0.1)
+    ax.pie(vals, labels=labels, autopct='%.2f', explode=exp, shadow=True)
+
+    circle = plt.Circle( (0,0), 0.3, color='white')
+    ax.add_artist(circle)
+
+    canvas = FigureCanvasTkAgg(fig, master=win_pie)
+    canvas.get_tk_widget().pack()
+    canvas.draw()
+
+
+    plt.show()
+
 
 menubar = tk.Menu(win)
 win.config(menu=menubar)
