@@ -43,7 +43,10 @@ def show_pie_chart():
     ax = fig.add_subplot(111)
     vals = [23, 16, 21, 18, 22]
     x = 'category: \n'
-    labels = [f'{x}food', f'{x}transport', f'{x}entertainment', f'{x}medicine', f'{x}other']
+    labels = ['food', 'transport', 'entertainment', 'medicine', 'other']
+    for el in range(6):
+        with open(f'categories\\{labels}.csv') as file:
+            pass
     exp = (0.05, 0.05, 0.05, 0.05, 0.05)
     ax.pie(vals, labels=labels, autopct='%.2f', explode=exp, shadow=True)
     # ax.legend(['food', 'transport', 'entertainment', 'medicine', 'other'], loc='upper right')
