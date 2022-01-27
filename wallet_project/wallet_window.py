@@ -42,17 +42,17 @@ def show_pie_chart():
     fig = plt.Figure(figsize=(12, 8), dpi=100)
     ax = fig.add_subplot(111)
     cat_vals = []
-    x = 'category: \n'
+    result_labels = []
     labels = ['food', 'transport', 'entertainment', 'medicine', 'other']
-    for el in labels:
-        with open(f'categories\\{el}.txt', 'r', encoding='utf-8') as file:
-            data = file.read()
-            cat_vals.append(data)
-    exp = (0.05, 0.05, 0.05, 0.05, 0.05)
-    ax.pie(cat_vals, labels=labels, autopct='%.2f', explode=exp, shadow=True)
-    # ax.legend(['food', 'transport', 'entertainment', 'medicine', 'other'], loc='upper right')
+    for label in labels:
+        with open(f'categories\\{label}.txt', 'r', encoding='utf-8') as file:
+            data = float(file.read())
+            if data != 0.0:
+                cat_vals.append(data)
+                result_labels.append(label)
+    #exp = (0.05, 0.05, 0.05, 0.05, 0.05)
+    ax.pie(cat_vals, labels=result_labels, autopct='%.2f', shadow=True)
     circle = plt.Circle((0, 0), 0.5, color='white')
-    # circle.set_radius(radius=0.5)
     ax.add_artist(circle)
     canvas = FigureCanvasTkAgg(fig, master=win_pie)
     canvas.get_tk_widget().pack()
