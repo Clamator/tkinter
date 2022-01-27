@@ -9,7 +9,6 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationTool
 from matplotlib.figure import Figure
 import numpy as np
 
-
 win = tk.Tk()
 win.geometry('400x480+600+300')
 # win.attributes('-fullscreen', True)
@@ -35,27 +34,22 @@ def about():
     win2.mainloop()
 
 
-#def pie_chart():
-
-
-
-
 def show_pie_chart():
     win_pie = tk.Toplevel()
     win_pie.title('Pie chart')
-    win_pie.geometry('800x600+600+300')
-    win_pie.minsize(400, 480)
-    fig = plt.Figure(figsize=(8, 8), dpi=100)
+    win_pie.geometry('800x800+600+200')
+    win_pie.resizable(False, False)
+    fig = plt.Figure(figsize=(12, 8), dpi=100)
     ax = fig.add_subplot(111)
     vals = [23, 16, 21, 18, 22]
-    x = 'category: '
+    x = 'category: \n'
     labels = [f'{x}food', f'{x}transport', f'{x}entertainment', f'{x}medicine', f'{x}other']
-    exp = (0.1, 0.1, 0.1, 0.1, 0.1)
+    exp = (0.05, 0.05, 0.05, 0.05, 0.05)
     ax.pie(vals, labels=labels, autopct='%.2f', explode=exp, shadow=True)
-
-    circle = plt.Circle( (0,0), 0.3, color='white')
+    # ax.legend(['food', 'transport', 'entertainment', 'medicine', 'other'], loc='upper right')
+    circle = plt.Circle((0, 0), 0.5, color='white')
+    # circle.set_radius(radius=0.5)
     ax.add_artist(circle)
-
     canvas = FigureCanvasTkAgg(fig, master=win_pie)
     canvas.get_tk_widget().pack()
     canvas.draw()
