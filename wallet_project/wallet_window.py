@@ -37,8 +37,8 @@ def about():
 def show_pie_chart():
     win_pie = tk.Toplevel()
     win_pie.title('Pie chart')
-    win_pie.geometry('800x800+600+200')
-    win_pie.resizable(False, False)
+    win_pie.geometry('500x500+600+200')
+    #win_pie.resizable(False, False)
     fig = plt.Figure(figsize=(12, 8), dpi=100)
     ax = fig.add_subplot(111)
     cat_vals = []
