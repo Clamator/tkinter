@@ -67,28 +67,28 @@ menubar.add_cascade(label='Options', menu=settings_menu)
 
 
 def write_csv(data):
-    #with open('categories\\common_history.csv', 'a', encoding="utf-8", newline='') as file:
-    file = cur_path/'categories'/'common_history.csv'
-    writer = csv.writer(file.write_text())
-    writer.writerow((
-        data['operation'],
-        data['how much'],
-        data['comment'],
-        data['date']
-    ))
+    file1 = cur_path/'categories'/'common_history.csv'
+    with open(file1, mode='a', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        writer.writerow((
+            data['operation'],
+            data['how much'],
+            data['comment'],
+            data['date']
+        ))
 
 
 def write_csv_categ(current_category, data):
     cat_name = current_category
-    #with open(f'categories\\{cat_name}_history.csv', 'a', encoding="utf-8", newline='') as file:
-    file = cur_path / 'categories' / f'{cat_name}_history.csv'
-    writer = csv.writer(file.write_text())
-    writer.writerow((
-        data['operation'],
-        data['how much'],
-        data['comment'],
-        data['date']
-    ))
+    file1 = cur_path / 'categories' / f'{cat_name}_history.csv'
+    with open(file1, mode='a', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        writer.writerow((
+            data['operation'],
+            data['how much'],
+            data['comment'],
+            data['date']
+        ))
 
 
 def show_all_history():
@@ -189,13 +189,14 @@ def show_category_history(event):
 
 def add_spent_money_to_category(category, spent_money):
     try:
-        with open(f'categories\\{category}.txt', 'r', encoding='utf-8') as money:
+        cur_category = cur_path/'categories'/f'{category}.txt'
+        with open(cur_category, mode='r', encoding='utf-8') as money:
             total_money = float(money.read())
             if total_money == '':
                 total_money = 0
             new_money = total_money + float(spent_money)
 
-        with open(f'categories\\{category}.txt', 'w', encoding='utf-8') as cat:
+        with open(cur_category, 'w', encoding='utf-8') as cat:
             cat.write(str(new_money))
 
         if category == 'food':
@@ -231,7 +232,8 @@ def delete_all_history():
     categories = ['food', 'transport', 'entertainment', 'medicine', 'other']
     null_amount_new = '0.0'
     for category in categories:
-        amount = open(f'categories\\{category}.txt', 'w', encoding='utf-8')
+        cur_category = cur_path / 'categories' / f'{category}.txt'
+        amount = open(cur_category, 'w', encoding='utf-8')
         amount.write(str(null_amount_new))
         tk.Label(win, text=f'total spent: {null_amount_new}', bg='#3b5998', fg='white').place(relx=0.04, rely=0.62,
                                                                                               relwidth=0.3,
@@ -256,16 +258,19 @@ def delete_all_history():
     new_spent_money2 = '0.0'
     tk.Label(win, text=f'Total spent: \n{new_spent_money2}', bg='#3b5998', fg='red',
              font=(None, 15)).place(relx=0.05, rely=0.1, relwidth=0.4, relheight=0.1)
-    open('categories\\total_spent.txt', 'w').write(str(new_spent_money2))
+    total_spent_1 = cur_path/'categories'/'total_spent.txt'
+    open(total_spent_1, 'w').write(str(new_spent_money2))
 
     new_earned_money2 = '0.0'
     tk.Label(win, text=f'Total earned: \n{new_earned_money2}', bg='#3b5998', fg='#0fff83', font=(None, 15)).place(
         relx=0.55, rely=0.1, relwidth=0.4, relheight=0.1)
-    open('categories\\total_earned.txt', 'w').write(str(new_earned_money2))
+    total_earned_1 = cur_path / 'categories' / 'total_earned.txt'
+    open(total_earned_1, 'w').write(str(new_earned_money2))
 
 
 def refill():
-    with open('wallet.txt', 'r', encoding='utf-8') as total_money:
+    wallet_main = cur_path/'wallet.txt'
+    with open(wallet_main, 'r', encoding='utf-8') as total_money:
         total_money = float(total_money.read())
         money_amount = float(number.get())
         new_total_money = money_amount + total_money
@@ -276,14 +281,15 @@ def refill():
         number.delete(0, tk.END)
         number.insert(0, '')
 
-        earned_money = float(open('categories\\total_earned.txt').read())
+        total_earned_1 = cur_path / 'categories' / 'total_earned.txt'
+        earned_money = float(open(total_earned_1).read())
         new_earned_money = money_amount + earned_money
         tk.Label(win, text=f'Total earned: \n{new_earned_money}', bg='#3b5998', fg='#0fff83', font=(None, 15)).place(
             relx=0.55,
             rely=0.1,
             relwidth=0.4,
             relheight=0.1)
-        open('categories\\total_earned.txt', 'w').write(str(new_earned_money))
+        open(total_earned_1, 'w').write(str(new_earned_money))
 
         messagebox.showinfo('Refilling', f"you refilled your willet with {money_amount}")
         data = {
@@ -294,13 +300,14 @@ def refill():
         }
         write_csv(data)
 
-    with open('wallet.txt', 'w', encoding='utf-8') as wallet:
+    with open(wallet_main, 'w', encoding='utf-8') as wallet:
         wallet.write(str(new_total_money))
     comment.delete(0, tk.END)
 
 
 def withdraw():
-    with open('wallet.txt', 'r', encoding='utf-8') as total_money:
+    wallet_main = cur_path / 'wallet.txt'
+    with open(wallet_main, 'r', encoding='utf-8') as total_money:
         total_money = float(total_money.read())
         money_amount = float(number.get())
         if money_amount <= total_money:
@@ -308,7 +315,7 @@ def withdraw():
             current_category = combo_categories.get()
             if current_category in categories:
                 add_spent_money_to_category(current_category, money_amount)
-                with open('wallet.txt', 'w', encoding='utf-8') as wallet:
+                with open(wallet_main, 'w', encoding='utf-8') as wallet:
                     wallet.write(str(new_total_money))
                 messagebox.showinfo('Withdrawing', f"you have spent {money_amount} on {current_category}")
                 tk.Button(win, text=f'It is {new_total_money} in the wallet now', bg='white', font=(None, 20),
@@ -321,11 +328,13 @@ def withdraw():
                     'comment': comment.get(),
                     'date': datetime.now()
                 }
-                spent_money1 = float(open('categories\\total_spent.txt').read())
+                total_spent_1 = cur_path / 'categories' / 'total_spent.txt'
+                spent_money1 = float(open(total_spent_1).read())
                 new_spent_money1 = money_amount + spent_money1
                 tk.Label(win, text=f'Total spent: \n{new_spent_money1}', bg='#3b5998', fg='red',
                          font=(None, 15)).place(relx=0.05, rely=0.1, relwidth=0.4, relheight=0.1)
-                open('categories\\total_spent.txt', 'w').write(str(new_spent_money1))
+
+                open(total_spent_1, 'w').write(str(new_spent_money1))
                 write_csv(data)
                 write_csv_categ(current_category, data)
 
