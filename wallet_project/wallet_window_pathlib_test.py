@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 from pathlib import *
 
-
 win = tk.Tk()
 win.geometry('400x480+600+300')
 # win.attributes('-fullscreen', True)
@@ -364,9 +363,11 @@ def add_digit(digit):
 #        number.delete(0, tk.END)
 #        number.insert(0, '0')
 # win.bind('<Key>', press_key)
+cur_path = Path.cwd()
+file2 = cur_path/'categories'/'total_spent.txt'
 
-file = float(open('categories\\total_spent.txt').read())
-tk.Label(win, text=f'Total spent: \n{file}', bg='#3b5998', fg='red', font=(None, 15)).place(relx=0.05, rely=0.1,
+#file = float(open('categories\\total_spent.txt').read())
+tk.Label(win, text=f'Total spent: \n{file2.read_text()}', bg='#3b5998', fg='red', font=(None, 15)).place(relx=0.05, rely=0.1,
                                                                                             relwidth=0.4, relheight=0.1)
 
 file2 = float(open('categories\\total_earned.txt').read())
