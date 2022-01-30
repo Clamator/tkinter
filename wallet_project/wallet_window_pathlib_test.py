@@ -9,7 +9,7 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationTool
 from pathlib import *
 
 win = tk.Tk()
-win.geometry('400x480+600+300')
+win.geometry('500x480+600+300')
 # win.attributes('-fullscreen', True)
 win.title('My wallet')
 win.minsize(400, 480)
