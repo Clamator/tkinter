@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 from pathlib import *
 
+
 win = tk.Tk()
 win.geometry('400x480+600+300')
 # win.attributes('-fullscreen', True)
