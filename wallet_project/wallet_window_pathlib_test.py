@@ -104,51 +104,10 @@ def show_all_history():
     scroll.pack(side=LEFT, fill=Y)
 
     text.config(yscrollcommand=scroll.set)
-    #with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
-    file = cur_path/'categories'/'common_history.csv'
-    order = ['operation', 'how much', 'comment', 'date']
-    reader = file.read_text()
-    text.configure(state=tk.NORMAL)
-    for row in reader:
-        #x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-        #y = f"op: {row['operation']}, -{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-        #if row['operation'] == 'refill':
-        text.insert(1.0, reader)
-        #else:
-        #    text.insert(1.0, y)
-    text.configure(state=tk.DISABLED)
-
-    def show_refill():
-        text.configure(state=tk.NORMAL)
-        text.delete("1.0", "end")
-        #with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
-        file = cur_path / 'categories' / 'common_history.csv'
+    com_his = cur_path/'categories'/'common_history.csv'
+    with open(com_his, mode='r') as file:
         order = ['operation', 'how much', 'comment', 'date']
-        reader = csv.DictReader(file.read_text(), fieldnames=order)
-        for row in reader:
-            x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-            if row['operation'] == 'refill':
-                text.insert(1.0, x)
-        text.configure(state=tk.DISABLED)
-
-    def show_withdraw():
-        text.configure(state=tk.NORMAL)
-        text.delete("1.0", "end")
-        #with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
-        file = cur_path / 'categories' / 'common_history.csv'
-        order = ['operation', 'how much', 'comment', 'date']
-        reader = csv.DictReader(file.read_text(), fieldnames=order)
-        for row in reader:
-            y = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-            if row['operation'] == 'withdraw':
-                text.insert(1.0, y)
-        text.configure(state=tk.DISABLED)
-
-    def show_all():
-        #with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
-        file = cur_path / 'categories' / 'common_history.csv'
-        order = ['operation', 'how much', 'comment', 'date']
-        reader = csv.DictReader(file.read_text(), fieldnames=order)
+        reader = csv.DictReader(file, fieldnames=order)
         text.configure(state=tk.NORMAL)
         for row in reader:
             x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
@@ -158,6 +117,45 @@ def show_all_history():
             else:
                 text.insert(1.0, y)
         text.configure(state=tk.DISABLED)
+
+    def show_refill():
+        text.configure(state=tk.NORMAL)
+        text.delete("1.0", "end")
+
+        with open(com_his, mode='r') as file:
+            order = ['operation', 'how much', 'comment', 'date']
+            reader = csv.DictReader(file, fieldnames=order)
+            for row in reader:
+                x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+                if row['operation'] == 'refill':
+                    text.insert(1.0, x)
+            text.configure(state=tk.DISABLED)
+
+    def show_withdraw():
+        text.configure(state=tk.NORMAL)
+        text.delete("1.0", "end")
+        with open(com_his, mode='r') as file:
+            order = ['operation', 'how much', 'comment', 'date']
+            reader = csv.DictReader(file, fieldnames=order)
+            for row in reader:
+                y = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+                if row['operation'] == 'withdraw':
+                    text.insert(1.0, y)
+            text.configure(state=tk.DISABLED)
+
+    def show_all():
+        with open(com_his, mode='r') as file:
+            order = ['operation', 'how much', 'comment', 'date']
+            reader = csv.DictReader(file, fieldnames=order)
+            text.configure(state=tk.NORMAL)
+            for row in reader:
+                x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+                y = f"op: {row['operation']}, -{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+                if row['operation'] == 'refill':
+                    text.insert(1.0, x)
+                else:
+                    text.insert(1.0, y)
+            text.configure(state=tk.DISABLED)
 
     settings_menu2 = tk.Menu(menubar2, tearoff=0)
     settings_menu2.add_command(label='Show only refill', command=show_refill)
