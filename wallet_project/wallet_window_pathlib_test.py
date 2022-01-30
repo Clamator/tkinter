@@ -26,8 +26,8 @@ def about():
     text.configure(state=tk.NORMAL)
     text.pack(side=LEFT)
 
-    info = open('categories\\about.txt')
-    text.insert(1.0, info.read())
+    info = cur_path/'categories'/'about.txt'
+    text.insert(1.0, info.read_text())
     text.configure(state=tk.DISABLED)
     # tk.Label(win2, text=info.read()).pack()
     win2.mainloop()
@@ -364,14 +364,15 @@ def add_digit(digit):
 #        number.insert(0, '0')
 # win.bind('<Key>', press_key)
 cur_path = Path.cwd()
-file2 = cur_path/'categories'/'total_spent.txt'
+total_spent = cur_path/'categories'/'total_spent.txt'
 
 #file = float(open('categories\\total_spent.txt').read())
-tk.Label(win, text=f'Total spent: \n{file2.read_text()}', bg='#3b5998', fg='red', font=(None, 15)).place(relx=0.05, rely=0.1,
+tk.Label(win, text=f'Total spent: \n{float(total_spent.read_text())}', bg='#3b5998', fg='red', font=(None, 15)).place(relx=0.05, rely=0.1,
                                                                                             relwidth=0.4, relheight=0.1)
 
-file2 = float(open('categories\\total_earned.txt').read())
-tk.Label(win, text=f'Total earned: \n{file2}', bg='#3b5998', fg='#0fff83', font=(None, 15)).place(relx=0.55, rely=0.1,
+total_earned = cur_path/'categories'/'total_earned.txt'
+#file2 = float(open('categories\\total_earned.txt').read())
+tk.Label(win, text=f'Total earned: \n{float(total_earned.read_text())}', bg='#3b5998', fg='#0fff83', font=(None, 15)).place(relx=0.55, rely=0.1,
                                                                                                   relwidth=0.4,
                                                                                                   relheight=0.1)
 
@@ -416,31 +417,28 @@ tk.Button(win, text='Delete all history', bg='white', command=delete_all_history
                                                                                         relwidth=0.28, relheight=0.05)
 
 # shows how much there is money in the wallet
-wallet1 = float(open('wallet.txt', 'r', encoding='utf-8').read())
-tk.Button(win, text=f'It is {wallet1} in the wallet now', bg='white', font=(None, 20),
+wallet = cur_path/'wallet.txt'
+#wallet1 = float(open('wallet.txt', 'r', encoding='utf-8').read())
+tk.Button(win, text=f'It is {float(wallet.read_text())} in the wallet now', bg='white', font=(None, 20),
           command=show_all_history).place(
     relx=0.5, rely=0.05, anchor='center',
     width=380,
     height=40)
 # shows how much has been spent for each category
-food1 = float(open('categories\\food.txt', 'r', encoding='utf-8').read())
-tk.Label(win, text=f'total spent: {food1}', bg='#3b5998', fg='white').place(relx=0.04, rely=0.62,
+food1 = cur_path/'categories'/'food.txt'
+tk.Label(win, text=f'total spent: {float(food1.read_text())}', bg='#3b5998', fg='white').place(relx=0.04, rely=0.62,
                                                                             relwidth=0.3, relheight=0.05)
-
-transport1 = float(open('categories\\transport.txt', 'r', encoding='utf-8').read())
-tk.Label(win, text=f'total spent: {transport1}', bg='#3b5998', fg='white').place(relx=0.35, rely=0.62,
+transport1 = cur_path/'categories'/'transport.txt'
+tk.Label(win, text=f'total spent: {float(transport1.read_text())}', bg='#3b5998', fg='white').place(relx=0.35, rely=0.62,
                                                                                  relwidth=0.3, relheight=0.05)
-
-entertainment1 = float(open('categories\entertainment.txt', 'r', encoding='utf-8').read())
-tk.Label(win, text=f'total spent: {entertainment1}', bg='#3b5998', fg='white').place(relx=0.66, rely=0.62,
+entertainment1 = cur_path/'categories'/'entertainment.txt'
+tk.Label(win, text=f'total spent: {float(entertainment1.read_text())}', bg='#3b5998', fg='white').place(relx=0.66, rely=0.62,
                                                                                      relwidth=0.3, relheight=0.05)
-
-medicine1 = float(open('categories\medicine.txt', 'r', encoding='utf-8').read())
-tk.Label(win, text=f'total spent: {medicine1}', bg='#3b5998', fg='white').place(relx=0.04, rely=0.77,
+medicine1 = cur_path/'categories'/'medicine.txt'
+tk.Label(win, text=f'total spent: {float(medicine1.read_text())}', bg='#3b5998', fg='white').place(relx=0.04, rely=0.77,
                                                                                 relwidth=0.3, relheight=0.05)
-
-other1 = float(open('categories\other.txt', 'r', encoding='utf-8').read())
-tk.Label(win, text=f'total spent: {other1}', bg='#3b5998', fg='white').place(relx=0.35, rely=0.77,
+other1 = cur_path/'categories'/'other.txt'
+tk.Label(win, text=f'total spent: {float(other1.read_text())}', bg='#3b5998', fg='white').place(relx=0.35, rely=0.77,
                                                                              relwidth=0.3, relheight=0.05)
 
 if __name__ == '__main__':
