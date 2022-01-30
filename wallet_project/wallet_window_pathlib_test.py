@@ -44,12 +44,10 @@ def show_pie_chart():
     result_labels = []
     labels = ['food', 'transport', 'entertainment', 'medicine', 'other']
     for label in labels:
-        with open(f'categories\\{label}.txt', 'r', encoding='utf-8') as file:
-            data = float(file.read())
-            if data != 0.0:
-                cat_vals.append(data)
-                result_labels.append(label)
-    #exp = (0.05, 0.05, 0.05, 0.05, 0.05)
+        data = cur_path/'categories'/f'{label}.txt'
+        if float(data.read_text()) != 0.0:
+            cat_vals.append(float(data.read_text()))
+            result_labels.append(str(label))
     ax.pie(cat_vals, labels=result_labels, autopct='%.2f', shadow=True)
     circle = plt.Circle((0, 0), 0.5, color='white')
     ax.add_artist(circle)
@@ -69,26 +67,28 @@ menubar.add_cascade(label='Options', menu=settings_menu)
 
 
 def write_csv(data):
-    with open('categories\\common_history.csv', 'a', encoding="utf-8", newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow((
-            data['operation'],
-            data['how much'],
-            data['comment'],
-            data['date']
-        ))
+    #with open('categories\\common_history.csv', 'a', encoding="utf-8", newline='') as file:
+    file = cur_path/'categories'/'common_history.csv'
+    writer = csv.writer(file.write_text())
+    writer.writerow((
+        data['operation'],
+        data['how much'],
+        data['comment'],
+        data['date']
+    ))
 
 
 def write_csv_categ(current_category, data):
     cat_name = current_category
-    with open(f'categories\\{cat_name}_history.csv', 'a', encoding="utf-8", newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow((
-            data['operation'],
-            data['how much'],
-            data['comment'],
-            data['date']
-        ))
+    #with open(f'categories\\{cat_name}_history.csv', 'a', encoding="utf-8", newline='') as file:
+    file = cur_path / 'categories' / f'{cat_name}_history.csv'
+    writer = csv.writer(file.write_text())
+    writer.writerow((
+        data['operation'],
+        data['how much'],
+        data['comment'],
+        data['date']
+    ))
 
 
 def show_all_history():
@@ -104,9 +104,51 @@ def show_all_history():
     scroll.pack(side=LEFT, fill=Y)
 
     text.config(yscrollcommand=scroll.set)
-    with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
+    #with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
+    file = cur_path/'categories'/'common_history.csv'
+    order = ['operation', 'how much', 'comment', 'date']
+    reader = csv.DictReader(file.read_text(), fieldnames=order)
+    text.configure(state=tk.NORMAL)
+    for row in reader:
+        x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+        y = f"op: {row['operation']}, -{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+        if row['operation'] == 'refill':
+            text.insert(1.0, x)
+        else:
+            text.insert(1.0, y)
+    text.configure(state=tk.DISABLED)
+
+    def show_refill():
+        text.configure(state=tk.NORMAL)
+        text.delete("1.0", "end")
+        #with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
+        file = cur_path / 'categories' / 'common_history.csv'
         order = ['operation', 'how much', 'comment', 'date']
-        reader = csv.DictReader(file, fieldnames=order)
+        reader = csv.DictReader(file.read_text(), fieldnames=order)
+        for row in reader:
+            x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+            if row['operation'] == 'refill':
+                text.insert(1.0, x)
+        text.configure(state=tk.DISABLED)
+
+    def show_withdraw():
+        text.configure(state=tk.NORMAL)
+        text.delete("1.0", "end")
+        #with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
+        file = cur_path / 'categories' / 'common_history.csv'
+        order = ['operation', 'how much', 'comment', 'date']
+        reader = csv.DictReader(file.read_text(), fieldnames=order)
+        for row in reader:
+            y = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+            if row['operation'] == 'withdraw':
+                text.insert(1.0, y)
+        text.configure(state=tk.DISABLED)
+
+    def show_all():
+        #with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
+        file = cur_path / 'categories' / 'common_history.csv'
+        order = ['operation', 'how much', 'comment', 'date']
+        reader = csv.DictReader(file.read_text(), fieldnames=order)
         text.configure(state=tk.NORMAL)
         for row in reader:
             x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
@@ -116,44 +158,6 @@ def show_all_history():
             else:
                 text.insert(1.0, y)
         text.configure(state=tk.DISABLED)
-
-    def show_refill():
-        text.configure(state=tk.NORMAL)
-        text.delete("1.0", "end")
-        with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
-            order = ['operation', 'how much', 'comment', 'date']
-            reader = csv.DictReader(file, fieldnames=order)
-            for row in reader:
-                x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-                if row['operation'] == 'refill':
-                    text.insert(1.0, x)
-            text.configure(state=tk.DISABLED)
-
-    def show_withdraw():
-        text.configure(state=tk.NORMAL)
-        text.delete("1.0", "end")
-        with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
-            order = ['operation', 'how much', 'comment', 'date']
-            reader = csv.DictReader(file, fieldnames=order)
-            for row in reader:
-                y = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-                if row['operation'] == 'withdraw':
-                    text.insert(1.0, y)
-            text.configure(state=tk.DISABLED)
-
-    def show_all():
-        with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
-            order = ['operation', 'how much', 'comment', 'date']
-            reader = csv.DictReader(file, fieldnames=order)
-            text.configure(state=tk.NORMAL)
-            for row in reader:
-                x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-                y = f"op: {row['operation']}, -{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-                if row['operation'] == 'refill':
-                    text.insert(1.0, x)
-                else:
-                    text.insert(1.0, y)
-            text.configure(state=tk.DISABLED)
 
     settings_menu2 = tk.Menu(menubar2, tearoff=0)
     settings_menu2.add_command(label='Show only refill', command=show_refill)
