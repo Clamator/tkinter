@@ -107,15 +107,15 @@ def show_all_history():
     #with open('categories\\common_history.csv', 'r', encoding="utf-8") as file:
     file = cur_path/'categories'/'common_history.csv'
     order = ['operation', 'how much', 'comment', 'date']
-    reader = csv.DictReader(file.read_text(), fieldnames=order)
+    reader = file.read_text()
     text.configure(state=tk.NORMAL)
     for row in reader:
-        x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-        y = f"op: {row['operation']}, -{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-        if row['operation'] == 'refill':
-            text.insert(1.0, x)
-        else:
-            text.insert(1.0, y)
+        #x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+        #y = f"op: {row['operation']}, -{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+        #if row['operation'] == 'refill':
+        text.insert(1.0, reader)
+        #else:
+        #    text.insert(1.0, y)
     text.configure(state=tk.DISABLED)
 
     def show_refill():
@@ -448,4 +448,4 @@ tk.Label(win, text=f'total spent: {float(other1.read_text())}', bg='#3b5998', fg
 if __name__ == '__main__':
     tk.mainloop()
 
-#
+# https://stackoverflow.com/questions/57296168/pathlib-path-write-text-in-append-mode
