@@ -9,6 +9,7 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationTool
 from matplotlib.figure import Figure
 import numpy as np
 
+
 win = tk.Tk()
 win.geometry('400x480+600+300')
 # win.attributes('-fullscreen', True)
