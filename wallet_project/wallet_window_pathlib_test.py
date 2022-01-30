@@ -176,7 +176,8 @@ def show_category_history(event):
     scroll.pack(side=LEFT, fill=Y)
     text.configure(state=tk.NORMAL)
     text.config(yscrollcommand=scroll.set)
-    with open(f'categories\\{cat_name}_history.csv', 'r', encoding="utf-8") as file:
+    categ_name = cur_path/'categories'/f'{cat_name}_history.csv'
+    with open(categ_name, mode='r', encoding="utf-8") as file:
         order = ['operation', 'how much', 'comment', 'date']
         reader = csv.DictReader(file, fieldnames=order)
         for row in reader:
