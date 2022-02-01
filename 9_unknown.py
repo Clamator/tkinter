@@ -35,6 +35,6 @@ with open(com_his, mode='r') as file:
         main_lst.append(row.values())
         #print(row)
     print(main_lst)
-table = Table(root, headings=order, rows=(tuple(main_lst)))
+table = Table(root, headings=order, rows=(tuple(reversed(main_lst))))
 table.pack(expand=tk.YES, fill=tk.BOTH)
 root.mainloop()
