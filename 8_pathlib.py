@@ -1,12 +1,13 @@
+import time
 import tkinter as tk
 import tkinter.ttk as ttk
 import csv
 from pathlib import *
 
 win = tk.Tk()
+win.title('wallet history')
 win.geometry('800x400+600+300')
 columns = ('operation', 'how_much', 'comment', 'date')
-
 treeview = ttk.Treeview(win, show="headings", columns=columns, selectmode="browse")
 treeview.column('operation', width=100, anchor='center')
 treeview.column('how_much', width=100, anchor='center')
@@ -29,11 +30,11 @@ with open(com_his, mode='r') as file:
     for row in reader:
         main_lst.append(row)
 
-#for el in main_lst:
-#    treeview.insert('', tk.END, values=(el['operation'], el['how much'], el['comment'], el['date'][:-10]))
-
 for el in main_lst:
     if 'refill' in el['operation']:
         treeview.insert('', tk.END, values=(el['operation'], f'+'+el['how much'], el['comment'], el['date'][:-10]))
     treeview.insert('', tk.END, values=(el['operation'], f'-' + el['how much'], el['comment'], el['date'][:-10]))
+
+#time.sleep(5)
+#treeview.delete(*treeview.get_children())
 win.mainloop()
