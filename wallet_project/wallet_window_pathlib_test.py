@@ -94,68 +94,102 @@ def write_csv_categ(current_category, data):
 def show_all_history():
     win3 = tk.Toplevel()
     win3.title('Wallet history')
-    win3.resizable(False, False)
+    win3.geometry('800x400+600+300')
+    #win3.resizable(False, False)
     menubar2 = tk.Menu(win3)
     win3.config(menu=menubar2)
+    columns = ('operation', 'how_much', 'comment', 'date')
+    treeview = ttk.Treeview(win3, show="headings", columns=columns, selectmode="browse")
+    treeview.column('operation', width=100, anchor='center')
+    treeview.column('how_much', width=100, anchor='center')
+    treeview.column('comment', width=250, anchor='center')
+    treeview.column('date', width=150, anchor='center')
 
-    text = tk.Text(win3, width=100, height=40, bg="white", wrap=WORD)
-    text.pack(side=LEFT)
-    scroll = Scrollbar(win3, command=text.yview)
-    scroll.pack(side=LEFT, fill=Y)
+    treeview.heading('operation', text='operation')
+    treeview.heading('how_much', text='how much')
+    treeview.heading('comment', text='comment')
+    treeview.heading('date', text='date')
 
-    text.config(yscrollcommand=scroll.set)
+    treeview.pack(side='left', fill='both', expand=tk.YES)
+
+    cur_path = Path.cwd()
     com_his = cur_path/'categories'/'common_history.csv'
     with open(com_his, mode='r') as file:
-        order = ['operation', 'how much', 'comment', 'date']
+        order = ('operation', 'how much', 'comment', 'date')
         reader = csv.DictReader(file, fieldnames=order)
-        text.configure(state=tk.NORMAL)
+        main_lst = []
         for row in reader:
-            x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-            y = f"op: {row['operation']}, -{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-            if row['operation'] == 'refill':
-                text.insert(1.0, x)
-            else:
-                text.insert(1.0, y)
-        text.configure(state=tk.DISABLED)
+            main_lst.append(row)
+
+    for el in reversed(main_lst):
+        if 'refill' in el['operation']:
+            treeview.insert('', tk.END,
+                            values=(el['operation'], f'+' + el['how much'], el['comment'], el['date'][:-10]))
+        treeview.insert('', tk.END, values=(el['operation'], f'-' + el['how much'], el['comment'], el['date'][:-10]))
+    #text = tk.Text(win3, width=100, height=40, bg="white", wrap=WORD)
+    #text.pack(side=LEFT)
+    scroll = tk.Scrollbar(win3, command=treeview.yview)
+    treeview.configure(yscrollcommand=scroll.set)
+    scroll.pack(side=RIGHT, fill=tk.Y)
+##
+    #text.config(yscrollcommand=scroll.set)
+    #com_his = cur_path/'categories'/'common_history.csv'
+    #with open(com_his, mode='r') as file:
+    #    order = ['operation', 'how much', 'comment', 'date']
+    #    reader = csv.DictReader(file, fieldnames=order)
+    #    text.configure(state=tk.NORMAL)
+    #    for row in reader:
+    #        x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+    #        y = f"op: {row['operation']}, -{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
+    #        if row['operation'] == 'refill':
+    #            text.insert(1.0, x)
+    #        else:
+    #            text.insert(1.0, y)
+    #    text.configure(state=tk.DISABLED)
 
     def show_refill():
-        text.configure(state=tk.NORMAL)
-        text.delete("1.0", "end")
-
+        treeview.delete(*treeview.get_children())
         with open(com_his, mode='r') as file:
-            order = ['operation', 'how much', 'comment', 'date']
+            order = ('operation', 'how much', 'comment', 'date')
             reader = csv.DictReader(file, fieldnames=order)
+            main_lst = []
             for row in reader:
-                x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-                if row['operation'] == 'refill':
-                    text.insert(1.0, x)
-            text.configure(state=tk.DISABLED)
+                main_lst.append(row)
+
+        for el in reversed(main_lst):
+            if 'refill' in el['operation']:
+                treeview.insert('', tk.END,
+                                values=(el['operation'], f'+' + el['how much'], el['comment'], el['date'][:-10]))
 
     def show_withdraw():
-        text.configure(state=tk.NORMAL)
-        text.delete("1.0", "end")
+        treeview.delete(*treeview.get_children())
         with open(com_his, mode='r') as file:
-            order = ['operation', 'how much', 'comment', 'date']
+            order = ('operation', 'how much', 'comment', 'date')
             reader = csv.DictReader(file, fieldnames=order)
+            main_lst = []
             for row in reader:
-                y = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-                if row['operation'] == 'withdraw':
-                    text.insert(1.0, y)
-            text.configure(state=tk.DISABLED)
+                main_lst.append(row)
+
+        for el in reversed(main_lst):
+            if 'withdraw' in el['operation']:
+                treeview.insert('', tk.END,
+                                values=(el['operation'], f'-' + el['how much'], el['comment'], el['date'][:-10]))
 
     def show_all():
+        treeview.delete(*treeview.get_children())
         with open(com_his, mode='r') as file:
-            order = ['operation', 'how much', 'comment', 'date']
+            order = ('operation', 'how much', 'comment', 'date')
             reader = csv.DictReader(file, fieldnames=order)
-            text.configure(state=tk.NORMAL)
+            main_lst = []
             for row in reader:
-                x = f"op: {row['operation']}, +{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-                y = f"op: {row['operation']}, -{row['how much']} $, {row['comment']}, date: {row['date'][:-10]} \n"
-                if row['operation'] == 'refill':
-                    text.insert(1.0, x)
-                else:
-                    text.insert(1.0, y)
-            text.configure(state=tk.DISABLED)
+                main_lst.append(row)
+
+        for el in reversed(main_lst):
+            if 'refill' in el['operation']:
+                treeview.insert('', tk.END,
+                                values=(el['operation'], f'+' + el['how much'], el['comment'], el['date'][:-10]))
+            treeview.insert('', tk.END,
+                            values=(el['operation'], f'-' + el['how much'], el['comment'], el['date'][:-10]))
 
     settings_menu2 = tk.Menu(menubar2, tearoff=0)
     settings_menu2.add_command(label='Show only refill', command=show_refill)
