@@ -36,9 +36,9 @@ def about():
 def show_pie_chart():
     win_pie = tk.Toplevel()
     win_pie.title('Pie chart')
-    win_pie.geometry('500x500+600+200')
+    win_pie.geometry('600x500+600+200')
     #win_pie.resizable(False, False)
-    fig = plt.Figure(figsize=(12, 8), dpi=100)
+    fig = plt.Figure(figsize=(15, 9), dpi=120)
     ax = fig.add_subplot(111)
     cat_vals = []
     result_labels = []
@@ -49,7 +49,7 @@ def show_pie_chart():
             cat_vals.append(float(data.read_text()))
             result_labels.append(str(label))
     ax.pie(cat_vals, labels=result_labels, autopct='%.2f', shadow=True)
-    circle = plt.Circle((0, 0), 0.5, color='white')
+    circle = plt.Circle((0, 0), 0.8, color='white')
     ax.add_artist(circle)
     canvas = FigureCanvasTkAgg(fig, master=win_pie)
     canvas.get_tk_widget().pack()
