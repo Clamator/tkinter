@@ -103,3 +103,36 @@ class Laptop(Pers_PC):
 #print(st.show_info())
 #lt = Laptop()
 #print(lt.show_info())
+
+class Table:
+    def __init__(self, a=None, b=None):
+        self.a = a
+        self.b = b
+
+
+class RectTable(Table):
+    def __init__(self, *args):
+        print('creating rectangle table')
+        super().__init__(*args)
+
+    def countS(self):
+        print('counting s')
+        return self.a * self.b
+
+
+class CircleTable(Table):
+    def __init__(self, *args):
+        print('creating circle table')
+        super().__init__(*args)
+
+    def countS(self):
+        print('counting s')
+        if self.b is None:
+            return 3.14 * (self.a**2)
+
+
+table = Table()
+rt1 = RectTable(2, 3)
+print(rt1.countS())
+ct1 = CircleTable(3)
+print(ct1.countS())
