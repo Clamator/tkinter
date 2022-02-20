@@ -115,3 +115,4 @@ line1 = Rectangle(1, 2)
 line2 = Rectangle(3, 4)
 
 print(line1.coordx, line1.coordy)
+
