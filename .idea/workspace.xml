@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8c0d5ba7-54f8-4bc7-a828-777fc277ea7c" name="Changes" comment="testing the pathlib for wallet - 4. now i am going to edit remain undone paths">
+    <list default="true" id="8c0d5ba7-54f8-4bc7-a828-777fc277ea7c" name="Changes" comment="---">
+      <change afterPath="$PROJECT_DIR$/16.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet_project/categories/food.txt" beforeDir="false" afterPath="$PROJECT_DIR$/wallet_project/categories/food.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet_project/categories/total_earned.txt" beforeDir="false" afterPath="$PROJECT_DIR$/wallet_project/categories/total_earned.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet_project/categories/total_spent.txt" beforeDir="false" afterPath="$PROJECT_DIR$/wallet_project/categories/total_spent.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet_project/wallet.txt" beforeDir="false" afterPath="$PROJECT_DIR$/wallet_project/wallet.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet_project/wallet_window_pathlib_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/wallet_project/wallet_window_pathlib_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/14.py" beforeDir="false" afterPath="$PROJECT_DIR$/14.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/15.py" beforeDir="false" afterPath="$PROJECT_DIR$/15.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,8 +39,8 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
-  <component name="RunManager" selected="Python.wallet_window_pathlib_test">
-    <configuration name="7_menubar_2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.14">
+    <configuration name="10" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="tkinter" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -54,7 +52,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/7_menubar_2.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/10.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -63,7 +61,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="8_pathlib (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="14" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="tkinter" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -75,7 +73,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/8_pathlib.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/14.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -84,19 +82,19 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="8_pathlib" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="15" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="tkinter" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/15.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -105,7 +103,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="wallet_window" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="16" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="tkinter" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -113,11 +111,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/wallet_project" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/wallet_project/wallet_window.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/16.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -126,7 +124,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="wallet_window_pathlib_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="test_5_1_inst_downloader" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="tkinter" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -134,11 +132,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/wallet_project" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/wallet_project/wallet_window_pathlib_test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_5_1_inst_downloader.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -149,11 +147,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.wallet_window_pathlib_test" />
-        <item itemvalue="Python.8_pathlib (1)" />
-        <item itemvalue="Python.wallet_window" />
-        <item itemvalue="Python.7_menubar_2" />
-        <item itemvalue="Python.8_pathlib" />
+        <item itemvalue="Python.14" />
+        <item itemvalue="Python.16" />
+        <item itemvalue="Python.test_5_1_inst_downloader" />
+        <item itemvalue="Python.15" />
+        <item itemvalue="Python.10" />
       </list>
     </recent_temporary>
   </component>
@@ -201,7 +199,35 @@
       <option name="project" value="LOCAL" />
       <updated>1643573019200</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="testing the pathlib for wallet - 4. now i am going to edit remain undone paths">
+      <created>1643574058769</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1643574058769</updated>
+    </task>
+    <task id="LOCAL-00007" summary="made transfer for all platforms (maybe)">
+      <created>1643574243018</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1643574243018</updated>
+    </task>
+    <task id="LOCAL-00008" summary="made transfer for all platforms (maybe)">
+      <created>1643743166978</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1643743166978</updated>
+    </task>
+    <task id="LOCAL-00009" summary="---">
+      <created>1645382924683</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1645382924683</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -220,6 +246,8 @@
     <MESSAGE value="testing the pathlib for wallet -2" />
     <MESSAGE value="testing the pathlib for wallet - 3. need to find out how to append data, not delete all history" />
     <MESSAGE value="testing the pathlib for wallet - 4. now i am going to edit remain undone paths" />
-    <option name="LAST_COMMIT_MESSAGE" value="testing the pathlib for wallet - 4. now i am going to edit remain undone paths" />
+    <MESSAGE value="made transfer for all platforms (maybe)" />
+    <MESSAGE value="---" />
+    <option name="LAST_COMMIT_MESSAGE" value="---" />
   </component>
 </project>

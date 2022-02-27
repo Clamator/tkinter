@@ -1,3 +1,6 @@
+from typing import final
+
+
 class Point:
     def __init__(self, x, y):
         self.x = x
@@ -104,6 +107,7 @@ class Laptop(Pers_PC):
 #lt = Laptop()
 #print(lt.show_info())
 
+#@final
 class Table:
     def __init__(self, a=None, b=None):
         self.a = a
